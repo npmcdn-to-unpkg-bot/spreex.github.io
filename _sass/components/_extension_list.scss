@@ -1,0 +1,23 @@
+.extension_list {
+
+}
+
+.extension_row {
+  display: block;
+  margin-top: 20px;
+  padding: 10px 15px 10px 15px;
+  border-radius: 10px;
+  border-bottom: 2px solid black;
+  background: $gradient;
+  &:hover {
+    background: $gradient-hover;
+  }
+}
+
+.extension_row__title {
+
+}
+
+.extension_row__description {
+  font-size: $font-size-small;
+}

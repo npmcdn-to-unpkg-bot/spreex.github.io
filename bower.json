@@ -1,0 +1,24 @@
+{
+  "name": "spreex.github.io",
+  "homepage": "https://github.com/spreex/spreex.github.io",
+  "authors": [
+    "Denis Gukov <fiftin@outlook.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap-sass": "^3.3.6",
+    "jquery": "^2.2.4",
+    "font-awesome": "fontawesome#^4.6.3",
+    "socket.io": "^1.4.5",
+    "socket.io-client": "https://github.com/socketio/socket.io-client.git#^1.4.5"
+  }
+}

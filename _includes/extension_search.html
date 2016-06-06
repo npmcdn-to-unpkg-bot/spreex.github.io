@@ -1,0 +1,14 @@
+<div class="extension_search">
+  <div class="container">
+    <input id="extension_search__input" type="text" placeholder="Search Extension..." class="form-control extension_search__input" />
+  </div>
+  <script type="text/javascript">
+    $('#extension_search__input').on('change', function() {
+      Mydataspace.emit('entities.getChildren', {
+        root: 'spreex.gihub.io',
+        path: 'extensions',
+        search: document.getElementById('extension_search__input').value
+      });
+    });
+  </script>
+</div>

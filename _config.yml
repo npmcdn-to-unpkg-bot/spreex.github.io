@@ -17,5 +17,20 @@ url: "http://yourdomain.com" # the base hostname & protocol for your site
 twitter_username: jekyllrb
 github_username:  jekyll
 
+url: "http://mydataspace.github.io"
+apiurl: "http://api-mydatasp.rhcloud.com"
+apiwsurl: "http://api-mydatasp.rhcloud.com:8000"
+
 # Build settings
 markdown: kramdown
+
+exclude:
+  - vendor/bootstrap/stylesheets
+  - vendor/fa/scss
+  - gulpfile.js
+  - package.json
+  - bower.json
+  - node_modules
+  - bower_components
+  - README.md
+  - jquery

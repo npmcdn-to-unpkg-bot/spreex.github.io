@@ -1,0 +1,15 @@
+{% include extension_search.html %}
+<div class="container">
+  <div id="extension_list" class="extension_list">
+    {% for post in site.posts %}
+    <a class="extension_row" href="{{ post.url | prepend: site.baseurl }}">
+      <div class="extension_row__title">
+        {{ post.title }}
+      </div>
+      <div class="extension_row__description">
+        {{ post.description }}
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+</div>
