@@ -1,0 +1,28 @@
+.block {
+  background: $gradient;
+  border-bottom: $border-thickness solid $border-color;
+  border-radius: $border-radius;
+  padding: $block-vpadding $block-hpadding;
+  h1, h2, h3, h4 {
+    margin: 0;
+  }
+}
+
+.block--square {
+  border-radius: 0;
+}
+
+.block--borderness {
+  border: 0;
+}
+
+.block--side {
+  border-bottom: 0;
+  border-left: $border-thickness solid $border-color;
+  margin-top: $block-vpadding * 2;
+}
+
+.block--top {
+  @extend .block--square;
+  padding: $block-vpadding * 2 0 $block-vpadding * 2 0;
+}

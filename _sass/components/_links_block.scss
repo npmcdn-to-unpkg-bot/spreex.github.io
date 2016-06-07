@@ -1,0 +1,14 @@
+.links_block {
+  @extend .block;
+  @extend .block--square;
+  @extend .block--borderness;
+  padding: 0;
+}
+
+.links_block__item {
+  a {
+    display: block;
+    padding: $block-vpadding $block-hpadding;
+  }
+  float: left;
+}

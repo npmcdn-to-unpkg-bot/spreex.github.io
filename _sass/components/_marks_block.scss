@@ -1,0 +1,17 @@
+.marks_block {
+  font-size: $font-size-small;
+}
+
+.marks_block__item_title {
+  text-align: left !important;
+  font-weight: normal !important;
+  width: 100px !important;
+  text-transform: lowercase;
+  padding: $block-vpadding / 2 0;
+}
+
+.marks_block__item_value {
+  font-weight: bold !important;
+  margin-left: 100px !important;
+  padding: $block-vpadding / 2 0;
+}

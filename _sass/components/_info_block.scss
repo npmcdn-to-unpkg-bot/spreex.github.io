@@ -1,0 +1,10 @@
+.info_block {
+  @extend .block;
+  @extend .block--side;
+
+}
+
+.info_block__title {
+  margin-bottom: $block-vpadding;
+  font-size: $font-size-large;
+}
