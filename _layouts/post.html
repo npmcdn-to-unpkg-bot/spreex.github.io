@@ -6,14 +6,7 @@ layout: default
     <div class="container">
       <div class="clearfix">
         <h1 class="post__title pull-left">{{ page.title }}</h1>
-        <div class="pull-right">
-          <i class="fa fa-comments" aria-hidden="true"></i>
-          <span id="post__number_of_comments">0</span>
-        </div>
-        <div class="pull-right">
-          <i class="fa fa-heart" aria-hidden="true"></i>
-          <span id="post__likes">0</span>
-        </div>
+        {% include summery_block.html %}
       </div>
     </div>
   </header>

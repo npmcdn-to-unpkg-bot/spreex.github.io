@@ -8,3 +8,13 @@
   margin-bottom: $block-vpadding;
   font-size: $font-size-large;
 }
+
+.info_block__summery {
+  margin-top: $block-vpadding;
+  margin-bottom: $block-vpadding;
+}
+
+.info_block__summery_value {
+  font-weight: bold !important;
+  margin-left: $block-hpadding;
+}

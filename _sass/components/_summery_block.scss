@@ -1,0 +1,13 @@
+.summery_block {
+  float: right;
+  transform: translateY(50%);
+}
+
+.summery_block__item {
+  float: right;
+  margin-left: $block-hpadding;
+}
+
+.summery_block__item_value {
+  margin-left: $block-hpadding / 3;
+}
