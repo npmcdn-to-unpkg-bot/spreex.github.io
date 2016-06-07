@@ -1,37 +1,9 @@
 ---
 layout: default
 ---
-<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
-  <header class="block block--top">
-    <div class="container">
-      <div class="clearfix">
-        <h1 class="post__title pull-left">{{ page.title }}</h1>
-        {% include summery_block.html %}
-      </div>
-    </div>
-  </header>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-9">
-
-        <div class="post__description">{{ page.description }}</div>
-
-        {% include links_block.html %}
-
-        <div class="post__content">
-          {{ content }}
-        </div>
-
-        <h2>Comments</h2>
-        <div class="post__comments" id="post__comments">
-          <div class="well">No comments here</div>
-        </div>
-
-      </div>
-      <div class="col-md-3">
-        {% include github_block.html %}
-        {% include rubygems_block.html %}
-      </div>
-    </div>
-  </div>
-</article>
+<div id="search" class="hidden">
+{% include pages/search.html %}
+</div>
+<div id="post">
+{% include pages/post.html content=content %}
+</div>

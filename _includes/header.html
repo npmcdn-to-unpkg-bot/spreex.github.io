@@ -23,7 +23,7 @@
         </form> -->
         {% endif %}
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="/">Extensions</a></li>
+          <li><a href="/" id="menu__search">Extensions</a></li>
           <!-- <li><a href="/chat">Chat</a></li> -->
           <li><a href="#" class="last-menu-item">Sign in</a></li>
           <!-- <li class="dropdown">
@@ -40,4 +40,11 @@
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
   </nav>
+  <script type="text/javascript">
+    document.getElementById('menu__search').addEventListener('click', function(event) {
+      document.getElementById('search').classList.remove('hidden');
+      document.getElementById('post').classList.add('hidden');
+      event.preventDefault();
+    });
+  </script>
 </header>

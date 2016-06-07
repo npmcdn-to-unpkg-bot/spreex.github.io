@@ -1,21 +1,9 @@
 ---
 layout: default
 ---
-{% include post_search.html %}
-<div class="container">
-  <div id="post_list" class="post_list">
-    {% for post in site.posts %}
-    <a class="post_row clearfix" href="{{ post.url | prepend: site.baseurl }}">
-      <div class="pull-left">
-        <div class="post_row__title">
-          {{ post.title }}
-        </div>
-        <div class="post_row__description">
-          {{ post.description }}
-        </div>
-      </div>
-      {% include summery_block.html include_github=true %}
-    </a>
-    {% endfor %}
-  </div>
+<div id="search">
+{% include pages/search.html %}
+</div>
+<div id="post" class="hidden">
+{% include pages/post.html %}
 </div>
