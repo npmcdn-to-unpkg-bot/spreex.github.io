@@ -1,15 +1,15 @@
 ---
 layout: default
 ---
-{% include extension_search.html %}
+{% include post_search.html %}
 <div class="container">
-  <div id="extension_list" class="extension_list">
+  <div id="post_list" class="post_list">
     {% for post in site.posts %}
-    <a class="extension_row" href="{{ post.url | prepend: site.baseurl }}">
-      <div class="extension_row__title">
+    <a class="post_row" href="{{ post.url | prepend: site.baseurl }}">
+      <div class="post_row__title">
         {{ post.title }}
       </div>
-      <div class="extension_row__description">
+      <div class="post_row__description">
         {{ post.description }}
       </div>
     </a>

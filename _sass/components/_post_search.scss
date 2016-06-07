@@ -1,7 +1,7 @@
 $extension-search-height: 100px;
 $extension-search-input-height: 50px;
 
-.extension_search {
+.post_search {
   border-bottom: $border-thickness solid $border-color;
   height: $extension-search-height;
   background: $gradient;
@@ -10,7 +10,7 @@ $extension-search-input-height: 50px;
   }
 }
 
-.extension_search__input {
+.post_search__input {
   height: $extension-search-input-height;
   margin-top: ($extension-search-height - $extension-search-input-height) / 2;
   border-radius: $border-radius;
