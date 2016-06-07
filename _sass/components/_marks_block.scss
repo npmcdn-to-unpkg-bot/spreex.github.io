@@ -1,4 +1,5 @@
 .marks_block {
+  margin-top: $block-vpadding * 2;
   font-size: $font-size-small;
 }
 
@@ -7,11 +8,11 @@
   font-weight: normal !important;
   width: 100px !important;
   text-transform: lowercase;
-  padding: $block-vpadding / 2 0;
+  padding: $block-vpadding / 3 0;
 }
 
 .marks_block__item_value {
   font-weight: bold !important;
   margin-left: 100px !important;
-  padding: $block-vpadding / 2 0;
+  padding: $block-vpadding / 3 0;
 }
