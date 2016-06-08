@@ -34,3 +34,7 @@ exclude:
   - bower_components
   - README.md
   - jquery
+
+gems:
+  - jekyll-redirect-from
+  
