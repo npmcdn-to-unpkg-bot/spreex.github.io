@@ -73,13 +73,44 @@ common = {
     return value === null || common.primativeTypes.indexOf(typeof value) > -1;
   },
 
-  mapToArray: function(map) {
-    var ret = [];
-    for (var key in map) {
-      ret.push(map[key]);
-      ret[ret.length - 1].name = key;
+  convertNameValueArrayToMap: function(arr) {
+    var ret = {};
+    for (var  i in arr) {
+      ret[arr[i].name] = arr[i].value;
     }
     return ret;
-  },
+  }
+
+  convertMapToNameValue: function(obj) {
+    var ret = [];
+    for (var  i in obj) {
+      ret.push({
+        name: i,
+        value: obj[i]
+      });
+    }
+    return ret;
+  }
+
+  findByName: function(arr, name) {
+    if (!Array.isArray(arr)) {
+      throw new Error('Argument arr isnt array');
+    }
+    if (typeof name === 'undefined') {
+      throw new Error('Name is undefined');
+    }
+    for (var  i in arr) {
+      if (arr[i].name === name) {
+        return arr[i];
+      }
+    }
+  }
+  function getChildName(path) {
+    var i = path.lastIndexOf('/');
+    if (i === -1) {
+      throw new Error('Path has no child');
+    }
+    return path.substr(i + 1);
+  }
 
 }

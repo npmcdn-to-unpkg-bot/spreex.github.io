@@ -1,6 +1,8 @@
 ---
 layout: default
 ---
+{% assign post_name = page.permalink | split:"/" | last %}
+
 <div id="search" class="hidden">
 {% include pages/search.html %}
 </div>

@@ -2,7 +2,7 @@
   <header class="block block--top">
     <div class="container">
       <div class="clearfix">
-        <h1 class="post__title pull-left" id="post__title">{{ page.title }}</h1>
+        <h1 class="post__title pull-left post_{{post_name}}__title">{{ page.title }}</h1>
         {% include summery_block.html %}
       </div>
     </div>
@@ -10,16 +10,16 @@
   <div class="container">
     <div class="row">
       <div class="col-md-9">
-        <div class="post__description" id="post__description">{{ page.description }}</div>
+        <div class="post__description" id="post__description post_{{post_name}}__description">{{ page.description }}</div>
 
         {% include links_block.html %}
 
-        <div class="post__content">
+        <div class="post__content post_{{post_name}}__content">
           {{ include.content }}
         </div>
 
         <h2>Comments</h2>
-        <div class="post__comments" id="post__comments">
+        <div class="post__comments" id="post__comments post_{{post_name}}__comments">
           <div class="well">No comments here</div>
         </div>
 

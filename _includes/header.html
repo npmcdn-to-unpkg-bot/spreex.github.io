@@ -9,7 +9,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="/">Spreex</a>
+        <a class="navbar-brand" href="/extensions">Spreex</a>
       </div>
 
       <!-- Collect the nav links, forms, and other content for toggling -->
@@ -23,7 +23,7 @@
         </form> -->
         {% endif %}
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="/" id="menu__search">Extensions</a></li>
+          <li><a href="/extensions">Extensions</a></li>
           <!-- <li><a href="/chat">Chat</a></li> -->
           <li><a href="#" class="last-menu-item">Sign in</a></li>
           <!-- <li class="dropdown">
@@ -42,8 +42,7 @@
   </nav>
   <script type="text/javascript">
     document.getElementById('menu__search').addEventListener('click', function(event) {
-      document.getElementById('search').classList.remove('hidden');
-      document.getElementById('post').classList.add('hidden');
+      controller.load()
       event.preventDefault();
     });
   </script>

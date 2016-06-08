@@ -1,5 +1,10 @@
 <footer class="site__footer">
   <script type="text/javascript">
-    
+    for (var link of document.getElementsByTagName('a')) {
+      link.addEventListener('click', function(event) {
+        controller.load(link.href);
+        event.preventDefault();
+      });
+    }
   </script>
 </footer>
