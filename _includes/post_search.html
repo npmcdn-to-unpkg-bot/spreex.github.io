@@ -5,7 +5,10 @@
   <script type="text/javascript">
     document.getElementById('post_search__input').value = common.getURLParamByName('search', window.location.href);
     document.getElementById('post_search__input').addEventListener('change', function() {
-      controller.load(UIHelper.getCurrentURL(), { search: document.getElementById('post_search__input').value });
+      controller.load(controller.getCurrentURL(), { search: document.getElementById('post_search__input').value });
+    });
+    document.getElementById('post_search__input').addEventListener('keydown', function() {
+      controller.load(controller.getCurrentURL(), { search: document.getElementById('post_search__input').value });
     });
   </script>
 </div>

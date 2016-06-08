@@ -157,6 +157,9 @@ controller = {
     if (common.isNull(postList)) {
       throw new Error('Illegal data');
     }
+    if (common.isBlank(rowsData.children)) {
+      postList.innerHTML = '';
+    }
     var currentRow = postList.firstChild;
     for (var postData of rowsData) {
       var postName = common.getChildName(postData.path);
@@ -176,7 +179,7 @@ controller = {
       } else {
         do {
           var rowToRemove = currentRow;
-          currentRow = currentRow.nextNode;
+          currentRow = currentRow.nextElementSibling;
           if (common.isNull(currentRow)) {
             postList.appendChild(controller.createPostRow(postData));
             break;
@@ -185,6 +188,11 @@ controller = {
         } while (Date.parse(postData.createdAt) > Date.parse(currentRow.getAttribute('data-createdAt')));
         postList.insertBefore(controller.createPostRow(postData), currentRow);
       }
+    }
+    while (!common.isNull(currentRow)) {
+      var rowToRemove = currentRow;
+      currentRow = currentRow.nextElementSibling;
+      postList.removeChild(rowToRemove);
     }
   },
 
