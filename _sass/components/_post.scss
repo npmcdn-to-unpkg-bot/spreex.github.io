@@ -2,3 +2,24 @@
   padding: $block-vpadding * 2 0 $block-vpadding * 2 0;
   font-size: $font-size-large;
 }
+
+.post--row {
+  display: block;
+  margin-top: 20px;
+  padding: 10px 15px 10px 15px;
+  border-radius: 10px;
+  border-bottom: 2px solid black;
+  background: $gradient;
+  &:hover {
+    background: $gradient-hover;
+  }
+}
+
+.post__title--row {
+  font-size: $font-size-large;
+}
+
+.post__description--row {
+  font-size: $font-size-small;
+  padding: 0;
+}

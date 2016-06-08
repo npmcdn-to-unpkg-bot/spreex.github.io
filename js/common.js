@@ -79,7 +79,7 @@ common = {
       ret[arr[i].name] = arr[i].value;
     }
     return ret;
-  }
+  },
 
   convertMapToNameValue: function(obj) {
     var ret = [];
@@ -90,7 +90,7 @@ common = {
       });
     }
     return ret;
-  }
+  },
 
   findByName: function(arr, name) {
     if (!Array.isArray(arr)) {
@@ -104,13 +104,23 @@ common = {
         return arr[i];
       }
     }
-  }
-  function getChildName(path) {
+  },
+
+  getChildName: function(path) {
     var i = path.lastIndexOf('/');
     if (i === -1) {
       throw new Error('Path has no child');
     }
     return path.substr(i + 1);
-  }
+  },
 
+  getURLParamByName: function(name, url) {
+      if (!url) url = window.location.href;
+      name = name.replace(/[\[\]]/g, "\\$&");
+      var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+          results = regex.exec(url);
+      if (!results) return null;
+      if (!results[2]) return '';
+      return decodeURIComponent(results[2].replace(/\+/g, " "));
+  },
 }

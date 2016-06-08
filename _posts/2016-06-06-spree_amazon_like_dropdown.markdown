@@ -2,10 +2,6 @@
 layout: post
 date:   2016-03-11 23:51:12 +0500
 permalink: /extensions/spree_amazon_like_dropdown
-title:  "spree_amazon_like_dropdown"
-description: "Spree amazon-like dropdown menu"
-source_code: 'https://github.com/maginfo-team/spree_amazon_like_dropdown'
-demo: 'https://spreecommerce-demo.herokuapp.com/'
 ---
 ## Spree amazon-like dropdown menu
 

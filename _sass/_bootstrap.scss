@@ -8,3 +8,10 @@
 .navbar-nav > li > a {
   text-transform: lowercase;
 }
+
+.disabled {
+  &, &:hover, &:active {
+    color: gray;
+    pointer-events: none;
+  }
+}

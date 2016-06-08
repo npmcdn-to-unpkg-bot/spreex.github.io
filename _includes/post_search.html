@@ -3,12 +3,9 @@
     <input id="post_search__input" type="text" placeholder="Search extension..." class="form-control post_search__input" />
   </div>
   <script type="text/javascript">
-    $('#post_search__input').on('change', function() {
-      Mydataspace.emit('entities.getChildren', {
-        root: 'spreex.gihub.io',
-        path: 'extensions',
-        search: document.getElementById('post_search__input').value
-      });
+    document.getElementById('post_search__input').value = common.getURLParamByName('search', window.location.href);
+    document.getElementById('post_search__input').addEventListener('change', function() {
+      controller.load(UIHelper.getCurrentURL(), { search: document.getElementById('post_search__input').value });
     });
   </script>
 </div>
