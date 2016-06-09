@@ -2,8 +2,10 @@
   <script type="text/javascript">
     for (var link of document.getElementsByTagName('a')) {
       link.addEventListener('click', function(event) {
-        controller.load(link.href);
+        // controller.load(link.href);
         event.preventDefault();
+        controller.load(this.href);
+        return false;
       });
     }
     controller.load(window.location.href);

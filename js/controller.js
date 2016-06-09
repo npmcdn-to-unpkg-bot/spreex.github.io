@@ -29,23 +29,25 @@ controller = {
       case 'extensions':
         switch (newPathParts.length) {
           case 1:
-            document.getElementById('post').classList.add('hidden');
-            document.getElementById('search').classList.remove('hidden');
-            Mydataspace.emit('entities.get', {
+            Mydataspace.request('entities.get', {
               root: controller.ROOT,
               path: 'extensions',
               search: search,
               children: []
+            }, function() {
+              document.getElementById('post').classList.add('hidden');
+              document.getElementById('search').classList.remove('hidden');
             });
             break;
           case 2:
-            document.getElementById('search').classList.add('hidden');
-            document.getElementById('post').classList.remove('hidden');
-            Mydataspace.emit('entities.get', {
+            Mydataspace.request('entities.get', {
               root: controller.ROOT,
               path: newPath,
               search: search,
               children: []
+            }, function() {
+              document.getElementById('search').classList.add('hidden');
+              document.getElementById('post').classList.remove('hidden');
             });
             $.ajax({
               url: url,
@@ -199,11 +201,11 @@ controller = {
   createPostRow: function(postData) {
     var postName = common.getChildName(postData.path);
     var row = document.createElement('div');
-    row.setAttribute('class', 'post--row clearfix');
+    row.setAttribute('class', 'post--row');
     row.setAttribute('data-postName', postName);
     row.setAttribute('data-createdAt', postData.createdAt);
     var html =
-      '<a href="/' + postData.path + '" onclick="event.preventDefault(); return controller.load(this.href);">\n' +
+      '<a class="clearfix" href="/' + postData.path + '" onclick="event.preventDefault(); return controller.load(this.href);">\n' +
       '  <div class="pull-left">\n' +
       '    <div class="post__title--row">\n' +
       '      ' + common.findByName(postData.fields, 'title').value + '\n' +

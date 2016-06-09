@@ -14,3 +14,7 @@
 @import "./components/summery_block";
 
 @import "./bootstrap";
+
+.site_content {
+  margin-bottom: $block-vpadding * 2;
+}

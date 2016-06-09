@@ -4,14 +4,16 @@
 }
 
 .post--row {
-  display: block;
-  margin-top: 20px;
-  padding: 10px 15px 10px 15px;
-  border-radius: 10px;
-  border-bottom: 2px solid black;
-  background: $gradient;
-  &:hover {
-    background: $gradient-hover;
+  & > a {
+    display: block;
+    margin-top: 20px;
+    padding: 10px 15px 10px 15px;
+    border-radius: 10px;
+    border-bottom: 2px solid black;
+    background: $gradient;
+    &:hover {
+      background: $gradient-hover;
+    }
   }
 }
 
@@ -29,6 +31,7 @@
 }
 
 .post__title {
+  text-transform: lowercase;
 }
 
 .post__title--header {
