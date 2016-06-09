@@ -15,6 +15,29 @@
   }
 }
 
+.post__header {
+  height: $top-block-height;
+  position: relative;
+}
+
+
+.post__summery {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 0;
+}
+
+.post__title {
+}
+
+.post__title--header {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-top: -5px !important;
+}
+
 .post__title--row {
   font-size: $font-size-large;
 }

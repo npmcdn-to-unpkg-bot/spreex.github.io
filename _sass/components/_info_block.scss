@@ -12,9 +12,17 @@
 .info_block__summery {
   margin-top: $block-vpadding;
   margin-bottom: $block-vpadding;
+  .row {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .col-xs-4 {
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
 
 .info_block__summery_value {
   font-weight: bold !important;
-  margin-left: $block-hpadding;
+  margin-left: 5px;
 }

@@ -24,5 +24,6 @@
 
 .block--top {
   @extend .block--square;
-  padding: $block-vpadding * 2 0 $block-vpadding * 2 0;
+  padding: 0;
+  height: $top-block-height;
 }

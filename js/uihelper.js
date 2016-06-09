@@ -22,7 +22,7 @@ UIHelper = {
     if (common.isNull(m)) {
       throw new Error('Illegal URL format:' + url);
     }
-    return UIHelper.parsePath(m[1]).join('/') || '';
+    return typeof m[1] === 'undefined' ? 'extensions' : UIHelper.parsePath(m[1]).join('/');
   },
 
   parsePath(path) {

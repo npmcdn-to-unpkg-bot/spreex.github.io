@@ -1,9 +1,9 @@
 <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
   <header class="block block--top">
     <div class="container">
-      <div class="clearfix">
-        <h1 class="post__title pull-left">{{ page.title }}</h1>
-        {% include summery_block.html %}
+      <div class="post__header">
+        <h1 class="post__title post__title--header">{{ page.title }}</h1>
+        <div class="post__summery">{% include summery_block.html %}</div>
       </div>
     </div>
   </header>
