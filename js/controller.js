@@ -88,7 +88,7 @@ controller = {
             if (controller.getCurrentPath() !== data.path) {
               throw new Error('Illegal path');
             }
-            controller.fillPost(data);
+            controller.fillPost(data, document.getElementById('post'));
             break;
           case 3:
             if (controller.getCurrentPath() + '/' + pathParts[2] !== data.path) {
