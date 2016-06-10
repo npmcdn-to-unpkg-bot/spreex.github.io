@@ -13,6 +13,15 @@ controller = {
     Mydataspace.init({
       connected: function() {
         Mydataspace.on('entities.get.res', controller.handle);
+        Mydataspace.on('login', function() {
+          document.getElementById('main_menu__signout_item').classList.remove('hidden');
+          document.getElementById('main_menu__signin_item').classList.add('hidden');
+          $('#signin_modal').modal('hide');
+        });
+        Mydataspace.on('logout', function() {
+          document.getElementById('main_menu__signin_item').classList.remove('hidden');
+          document.getElementById('main_menu__signout_item').classList.add('hidden');
+        });
       }
     });
     Mydataspace.connect();
@@ -26,6 +35,8 @@ controller = {
     var newPathParts = UIHelper.parsePath(newPath);
     var search = typeof options.search !== 'undefined' ? options.search : common.getURLParamByName(url);
     switch (newPathParts[0]) {
+      case '#':
+        return;
       case 'extensions':
         switch (newPathParts.length) {
           case 1:

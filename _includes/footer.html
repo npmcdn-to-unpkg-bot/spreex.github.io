@@ -1,8 +1,48 @@
+{% if jekyll.environment == "local" %}
+  {% assign apiurl = "http://localhost:8080" %}
+  {% assign apiwsurl = "http://localhost:8080" %}
+{% else %}
+  {% assign apiurl = site.apiurl %}
+  {% assign apiwsurl = site.apiwsurl %}
+{% endif %}
+
 <footer class="site__footer">
+
+  <div id="signin_modal" class="modal fade signin_modal" tabindex="-1" role="dialog" aria-labelledby="Sign In">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Sign In</h4>
+        </div>
+        <div class="modal-body">
+          <div class="signin_modal__auth_block">
+            <button type="button" name="button" data-authprovider="facebook" class="btn btn-lg btn-primary signin_modal__auth_button signin_modal__auth_button--facebook">
+              Connect with Facebook
+            </button>
+            <button type="button" name="button" data-authprovider="google" class="btn btn-lg btn-danger signin_modal__auth_button signin_modal__auth_button--google">
+              Connect with Google
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script type="text/javascript">
+    document.getElementById('main_menu__signout_item').addEventListener('click', function() {
+      Mydataspace.logout();
+    });
+
+    for (var authBtn of document.getElementsByClassName('signin_modal__auth_button')) {
+      authBtn.addEventListener('click', function(event) {
+        Mydataspace.login(this.getAttribute('data-authprovider'));
+      });
+    }
+
     for (var link of document.getElementsByTagName('a')) {
       link.addEventListener('click', function(event) {
-        // controller.load(link.href);
         event.preventDefault();
         controller.load(this.href);
         return false;
