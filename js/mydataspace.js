@@ -53,9 +53,7 @@ Mydataspace = {
     Mydataspace.on('connected', options.connected);
     window.addEventListener('message', function(e) {
       if (e.data.message === 'authResult') {
-        if (typeof localStorage !== 'undefined') {
-          localStorage.setItem('authToken', e.data.result);
-        }
+        localStorage.setItem('authToken', e.data.result);
         Mydataspace.emit('authenticate', { token: e.data.result });
         e.source.close();
       }
@@ -74,7 +72,7 @@ Mydataspace = {
 
     Mydataspace.on('connect', function () {
       Mydataspace.connected = true;
-      if (typeof localStorage !== 'undefined' && common.isPresent(localStorage.getItem('authToken'))) {
+      if (common.isPresent(localStorage.getItem('authToken'))) {
         Mydataspace.emit('authenticate', { token: localStorage.getItem('authToken') });
       }
       Mydataspace.callListeners('connected');
@@ -127,9 +125,7 @@ Mydataspace = {
   },
 
   logout: function() {
-    if (typeof localStorage !== 'undefined') {
-      localStorage.removeItem('authToken');
-    }
+    localStorage.removeItem('authToken');
     Mydataspace.disconnect();
     Mydataspace.connect();
     Mydataspace.callListeners('logout');
