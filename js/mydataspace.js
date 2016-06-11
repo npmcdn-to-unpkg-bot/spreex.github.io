@@ -74,7 +74,7 @@ Mydataspace = {
 
     Mydataspace.on('connect', function () {
       Mydataspace.connected = true;
-      if (typeof localStorage !== 'undefined' || common.isPresent(localStorage.getItem('authToken'))) {
+      if (typeof localStorage !== 'undefined' && common.isPresent(localStorage.getItem('authToken'))) {
         Mydataspace.emit('authenticate', { token: localStorage.getItem('authToken') });
       }
       Mydataspace.callListeners('connected');
