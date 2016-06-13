@@ -1,4 +1,6 @@
 Sync = {
+  URL: '',
+  // URL: 'http://spreex.github.io',
   ROOT: 'spreex.github.io',
   FIELDS: [
     'title',
@@ -19,6 +21,10 @@ Sync = {
    * Connect & login to MyDataSpace.
    */
   connectToStorage: function(done) {
+    if (Mydataspace.isLoggedIn()) {
+      done();
+      return;
+    }
     Mydataspace.init({
       connected: function() {
         Mydataspace.on('login', function() {
@@ -34,11 +40,7 @@ Sync = {
   },
 
   getDataFromSite: function(done) {
-    $.ajax({
-      url: 'http://spreex.github.io/posts.js',
-      mathod: 'get',
-      dataType: 'json'
-    }).done(function(data) {
+    $.getJSON(Sync.URL + '/posts.json', function(data) {
       done(data);
     });
   },
@@ -64,7 +66,7 @@ Sync = {
   },
 
   getPostsToRemove: function(postsOnSite, postsInStorage) {
-    return postsInStorage.filter(post => typeof common.findByName(postsOnSite, common.getChildName(post.path)) !== 'undefined');
+    return postsInStorage.filter(post => typeof common.findByName(postsOnSite, common.getChildName(post.path)) === 'undefined');
   },
 
   isPostExistsInStorage: function(postInStorage, name) {
@@ -115,7 +117,7 @@ Sync = {
             if (typeof postOnSite[field] === 'undefined') {
               continue;
             }
-            
+
             res.fields.push({
               name: field,
               value: postOnSite[field]

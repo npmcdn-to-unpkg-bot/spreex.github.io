@@ -15,7 +15,7 @@ Mydataspace = {
     facebook: {
       title: 'Connect to Facebook',
       icon: 'facebook',
-      url: 'https://www.facebook.com/dialog/oauth?client_id=827438877364954&scope=email&redirect_uri={{ apiurl }}/auth?authProvider=facebook&display=popup',
+      url: 'https://www.facebook.com/dialog/oauth?client_id=827438877364954&scope=email&redirect_uri={{api_url}}/auth?authProvider=facebook&display=popup',
       loginWindow: {
         height: 400
       }
@@ -23,17 +23,28 @@ Mydataspace = {
     google: {
       title: 'Connect to Google',
       icon: 'google-plus',
-      url: 'https://accounts.google.com/o/oauth2/auth?access_type=offline&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fplus.me%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fplus.profile.emails.read&response_type=code&client_id=821397494321-s85oh989s0ip2msnock29bq1gpprk07f.apps.googleusercontent.com&redirect_uri={{ apiurl | cgi_escape }}%2Fauth%3FauthProvider%3Dgoogle',
+      url: 'https://accounts.google.com/o/oauth2/auth?access_type=offline&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fplus.me%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fplus.profile.emails.read&response_type=code&client_id=821397494321-s85oh989s0ip2msnock29bq1gpprk07f.apps.googleusercontent.com&redirect_uri={{api_url}}%2Fauth%3FauthProvider%3Dgoogle',
       loginWindow: {
         height: 800
       }
     },
   },
+
   getAuthProviders: function() {
     var ret = common.copy(Mydataspace.authProviders);
     for (let provider of ret) {
-      ret.url = ret.url.replace('{{api_url}}', Mydataspace.options.apiURL);
+      ret.url = ret.url.replace('{{api_url}}', encodeURIComponent(Mydataspace.options.apiURL));
     }
+    return ret;
+  },
+
+  getAuthProvider: function(providerName) {
+    var prov = Mydataspace.authProviders[providerName];
+    if (typeof prov === 'undefined') {
+      return null;
+    }
+    var ret = common.copy(prov);
+    ret.url = ret.url.replace('{{api_url}}', encodeURIComponent(Mydataspace.options.apiURL));
     return ret;
   },
 
@@ -113,7 +124,7 @@ Mydataspace = {
   },
 
   login: function(providerName) {
-    var authProvider = Mydataspace.authProviders[providerName];
+    var authProvider = Mydataspace.getAuthProvider(providerName);
     var authWindow = window.open(authProvider.url, '', 'width=640, height=' + authProvider.loginWindow.height);
     authWindow.focus();
     var authCheckInterval = setInterval(function() {
