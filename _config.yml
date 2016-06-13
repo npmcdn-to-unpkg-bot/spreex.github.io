@@ -18,8 +18,8 @@ twitter_username: jekyllrb
 github_username:  jekyll
 
 url: "http://mydataspace.github.io"
-apiurl: "http://api-mydatasp.rhcloud.com"
-apiwsurl: "http://api-mydatasp.rhcloud.com:8000"
+api_url: "http://api-mydatasp.rhcloud.com"
+api_websocket_url: "http://api-mydatasp.rhcloud.com:8000"
 
 # Build settings
 markdown: kramdown
