@@ -25,6 +25,8 @@ api_websocket_url: "http://api-mydatasp.rhcloud.com:8000"
 markdown: kramdown
 
 exclude:
+  - test
+  - karma.conf.js
   - vendor/bootstrap/stylesheets
   - vendor/fa/scss
   - gulpfile.js
