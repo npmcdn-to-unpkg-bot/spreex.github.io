@@ -1,0 +1,16 @@
+---
+---
+[
+  {% for post in site.categories.extensions %}
+  {
+    "name": "{{ post.permalink | split:"/" | last }}",
+    "github": "{{ post.github }}",
+    {% if post.rubygems %}"rubygems": "{{ post.rubygems }}",{% endif %}
+    {% if post.websiteURL %}"websiteURL": "{{ post.websiteURL }}",{% endif %}
+    {% if post.demoURL %}"demoURL": "{{ post.demoURL }}",{% endif %}
+    {% if post.githubRepoName %}"githubRepoName": "{{ post.githubRepoName }}",{% endif %}
+    {% if post.rubygemsGemName %}"rubygemsGemName": "{{ post.rubygemsGemName }}",{% endif %}
+    "description": "{{ post.description }}",
+  },
+  {% endfor %}
+]

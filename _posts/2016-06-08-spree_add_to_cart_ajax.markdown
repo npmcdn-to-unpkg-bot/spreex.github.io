@@ -2,6 +2,11 @@
 layout: post
 date:   2016-03-11 23:51:12 +0500
 permalink: /extensions/spree_add_to_cart_ajax
+categories: extensions
+demoURL:          https://spreecommerce-demo.herokuapp.com/
+sourceCodeURL:    https://github.com/fiftin/spree_add_to_cart_ajax
+githubRepoName:   fiftin/spree_add_to_cart_ajax
+description:      "Adds button 'Add to cart' for each product on Products list page."
 ---
 ## spree_add_to_cart_ajax extension
 
