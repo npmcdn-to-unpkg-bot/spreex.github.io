@@ -6,11 +6,13 @@ controller = {
     return window.location.href;
   },
 
-  init: function() {
+  init: function(apiURL, websocketURL) {
     window.onpopstate = function(event) {
       controller.load(window.location.href);
     };
     Mydataspace.init({
+      apiURL: apiURL,
+      websocketURL: websocketURL,
       connected: function() {
         Mydataspace.on('entities.get.res', controller.handle);
         Mydataspace.on('login', function() {

@@ -1,13 +1,3 @@
----
----
-{% if jekyll.environment == "local" %}
-  {% assign apiurl = "http://localhost:8080" %}
-  {% assign apiwsurl = "http://localhost:8080" %}
-{% else %}
-  {% assign apiurl = site.apiurl %}
-  {% assign apiwsurl = site.apiwsurl %}
-{% endif %}
-
 Mydataspace = {
   initialized: false,
   connected: false,
@@ -20,6 +10,7 @@ Mydataspace = {
     logout: [],
     connected: []
   },
+
   authProviders: {
     facebook: {
       title: 'Connect to Facebook',
@@ -38,6 +29,13 @@ Mydataspace = {
       }
     },
   },
+  getAuthProviders: function() {
+    var ret = common.copy(Mydataspace.authProviders);
+    for (let provider of ret) {
+      ret.url = ret.url.replace('{{api_url}}', Mydataspace.options.apiURL);
+    }
+    return ret;
+  },
 
   init: function(options) {
     if (Mydataspace.initialized) {
@@ -45,7 +43,6 @@ Mydataspace = {
       return;
     }
     Mydataspace.options = common.extend({
-      host: '{{ apiwsurl }}',
       connected: function() {
         console.log('Maybe you forgot to specify connected-event handler');
       }
@@ -62,7 +59,7 @@ Mydataspace = {
   },
 
   connect: function(done) {
-    Mydataspace.socket = io(Mydataspace.options.host, {
+    Mydataspace.socket = io(Mydataspace.options.websocketURL, {
       // secure: true,
       'force new connection' : true,
       'reconnectionAttempts': 'Infinity', //avoid having user reconnect manually in order to prevent dead clients after a server restart
