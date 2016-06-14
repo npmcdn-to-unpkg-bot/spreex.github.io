@@ -15,7 +15,7 @@
     "sourceCodeURL": "https://github.com/{{ post.githubRepoName }}",
     {% endif %}
     "description": "{{ post.description }}",
-    {% if post.tags %}"tags": "{{ post.tags }}",{% endif %}
+    "tags": "{{ post.tags | join:" " }}"
   },
   {% endfor %}
 ]
