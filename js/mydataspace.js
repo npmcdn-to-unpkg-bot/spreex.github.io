@@ -32,8 +32,8 @@ Mydataspace = {
 
   getAuthProviders: function() {
     var ret = common.copy(Mydataspace.authProviders);
-    for (let provider of ret) {
-      ret.url = ret.url.replace('{{api_url}}', encodeURIComponent(Mydataspace.options.apiURL));
+    for (var providerName in ret) {
+      ret[providerName].url = ret[providerName].url.replace('{{api_url}}', encodeURIComponent(Mydataspace.options.apiURL));
     }
     return ret;
   },

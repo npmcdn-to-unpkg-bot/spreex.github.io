@@ -73,6 +73,15 @@ common = {
     return value === null || common.primativeTypes.indexOf(typeof value) > -1;
   },
 
+  mapToArray: function(map) {
+    var ret = [];
+    for (var key in map) {
+      ret.push(map[key]);
+      ret[ret.length - 1].name = key;
+    }
+    return ret;
+  },
+
   convertNameValueArrayToMap: function(arr) {
     var ret = {};
     for (var  i in arr) {
