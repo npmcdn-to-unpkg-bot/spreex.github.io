@@ -151,6 +151,9 @@ Mydataspace = {
     if (typeof Mydataspace.socket === 'undefined') {
       throw new Error('You must connect to server before emit data');
     }
+    if (Array.isArray(data)) {
+      data = { datas: data };
+    }
     Mydataspace.socket.emit(eventName, data);
   },
 
@@ -170,6 +173,9 @@ Mydataspace = {
       success: successCallback || function() {},
       fail: failCallback || function() {}
     };
+    if (Array.isArray(data)) {
+      data = { datas: data };
+    }
     // Store request information to array
     Mydataspace.lastRequestId++;
     data.requestId = Mydataspace.lastRequestId;

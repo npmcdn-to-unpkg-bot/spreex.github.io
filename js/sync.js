@@ -36,13 +36,18 @@ Sync = {
   },
 
   getDataFromStorage: function(done) {
-    Mydataspace.request('entities.get', { root: Sync.ROOT, path: 'extensions' }, done);
+    Mydataspace.request('entities.get', { root: Sync.ROOT, path: 'extensions', children: [] }, function(data) {
+      done(data.children);
+    });
   },
 
   getDataFromSite: function(done) {
-    $.getJSON(Sync.URL + '/posts.json', function(data) {
-      done(data);
+    var oReq = new XMLHttpRequest();
+    oReq.addEventListener('load', function() {
+      done(eval('(' + this.responseText + ')'));
     });
+    oReq.open('GET', Sync.URL + '/posts.json');
+    oReq.send();
   },
 
   getGithubRepo: function(postOnSite) {
@@ -66,7 +71,7 @@ Sync = {
   },
 
   getPostsToRemove: function(postsOnSite, postsInStorage) {
-    return postsInStorage.filter(post => typeof common.findByName(postsOnSite, common.getChildName(post.path)) === 'undefined');
+    return common.permit(postsInStorage.filter(post => typeof common.findByName(postsOnSite, common.getChildName(post.path)) === 'undefined'), ['root', 'path']);
   },
 
   isPostExistsInStorage: function(postInStorage, name) {

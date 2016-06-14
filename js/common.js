@@ -123,4 +123,108 @@ common = {
       if (!results[2]) return '';
       return decodeURIComponent(results[2].replace(/\+/g, " "));
   },
+
+
+  permit: function(data, keys) {
+    if (typeof data === 'undefined') {
+      return [];
+    }
+    if (arguments.length > 2) {
+      keys = [];
+      for (var i = 1; i < arguments.length; i++) {
+        keys.push(arguments[i]);
+      }
+    }
+    if (Array.isArray(data)) {
+      return common.permitArray(data, keys);
+    } else {
+      var ret = {};
+      if (Array.isArray(keys)) {
+        for (var i in keys) {
+          var k = keys[i];
+          var val = data[k];
+          if (typeof val !== 'undefined') {
+            ret[k] = val;
+          }
+        }
+      } else {
+        for (var k in keys) {
+          var type = keys[k];
+          var val = data[k];
+          if (typeof val !== 'undefined') {
+            var ok = false;
+            if (common.isPrimitive(type)) {
+              ok = common.isValidPrimitiveType(val, type);
+            } else {
+              ret[k] = common.permit(val, type);
+            }
+            if (ok) {
+              ret[k] = val;
+            }
+          }
+        }
+      }
+      return ret;
+    }
+  },
+
+  permitArray: function(arr, keys) {
+    var ret = [];
+    for (var i in arr) {
+      var data = arr[i];
+      ret[i] = common.permit(data, keys);
+    }
+    return ret;
+  },
+
+  isValidPrimitiveType: function(val, type) {
+    var ok = false;
+    switch (type) {
+      case 's': // string
+      case 'j': // javascript
+      case 'u': // javascript source
+        if (Array.isArray(val)) {
+          ok = val.reduce(function(prev, curr) {
+            return prev && common.isPrimitive(curr);
+          });
+        } else {
+          ok = common.isPrimitive(val);
+        }
+        break;
+      case 'i':
+        ok = common.isInt(val);
+        break;
+      case 'r':
+        ok = common.isReal(val);
+        break;
+      case 'o':
+        ok = common.isObject(val);
+        break;
+      case 'a':
+        ok = true;
+        break;
+    }
+    return ok;
+  },
+
+  isReal: function(value) {
+    return !isNaN(parseFloat(value));
+  },
+
+  isInt: function(value) {
+    return !isNaN(parseInt(value));
+  },
+
+  isComplex: function(value) {
+    return isObject(value) || Array.isArray(value);
+  },
+
+  isPrimitive: function(value) {
+    return !isComplex(value);
+  },
+
+  isObject: function(value) {
+    return typeof value === 'object';
+  },
+
 }
