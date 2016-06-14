@@ -26,6 +26,8 @@ Sync = {
       return;
     }
     Mydataspace.init({
+      apiURL: 'http://api-mydatasp.rhcloud.com',
+      websocketURL: 'http://api-mydatasp.rhcloud.com:8000',
       connected: function() {
         Mydataspace.on('login', function() {
           done();
