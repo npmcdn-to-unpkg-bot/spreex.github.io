@@ -1,6 +1,5 @@
 Sync = {
-  URL: '',
-  // URL: 'http://spreex.github.io',
+  URL: 'http://spreex.github.io',
   ROOT: 'spreex.github.io',
   FIELDS: [
     'title',
