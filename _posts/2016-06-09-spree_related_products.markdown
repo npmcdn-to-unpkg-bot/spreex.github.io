@@ -2,6 +2,10 @@
 layout: post
 date:   2016-03-11 23:51:12 +0500
 permalink: /extensions/spree_related_products
+categories: extensions
+sourceCodeURL:    https://github.com/spree-contrib/spree_related_products
+githubRepoName:   spree-contrib/spree_related_products
+description:      "This extension provides a generic way for you to define different types of relationships between your products, by defining a RelationType for each type of relationship you'd like to maintain."
 ---
 ## Related Products
 
