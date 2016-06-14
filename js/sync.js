@@ -142,7 +142,11 @@ Sync = {
             Mydataspace.request('entities.create', Sync.getPostsToCreate(postsOnSite, postsInStorage), function() {
               Mydataspace.request('entities.change', Sync.getPostsToChange(postsOnSite, postsInStorage), function() {
                 Promise.all(postsOnSite.map(postOnSite => Sync.getGithubRepo(postOnSite))).then(postsForUpdate => {
-                  Mydataspace.emit('entities.change', postsForUpdate);
+                  Mydataspace.request('entities.change', postsForUpdate, function() {
+                    if (typeof console.scriptComplete === 'function') {
+                      console.scriptComplete();
+                    }
+                  });
                 });
               });
             });
