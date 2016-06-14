@@ -64,7 +64,7 @@ Sync = {
       }
       return {
         root: Sync.ROOT,
-        path: 'extensions/' + postOnSite.name,
+        path: 'extensions/' + postOnSite.name + '/github',
         fields: fields
       };
     });
