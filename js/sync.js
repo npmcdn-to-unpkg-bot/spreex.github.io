@@ -57,7 +57,7 @@ Sync = {
       const fields = [];
       const data = details.data;
       for (let field in Sync.GITHUB_FIELDS) {
-        field.push({
+        fields.push({
           name: Sync.GITHUB_FIELDS[field],
           value: data[field]
         });
