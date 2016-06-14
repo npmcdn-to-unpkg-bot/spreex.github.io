@@ -2,6 +2,12 @@
 layout: post
 date:   2016-03-11 23:51:12 +0500
 permalink: /extensions/spree_paypal_express
+categories: extensions
+sourceCodeURL:    https://github.com/spree-contrib/spree_paypal_express
+githubRepoName:   spree-contrib/spree_paypal_express
+description:      "This is the official PayPal Express extension for Spree, based on the extension by PaulCC it has been extended to support Spree's
+Billing Integrations which allows users to configure the PayPal Express gateway including API login / password and signatures fields
+via the Admin UI."
 ---
 **This extension is largely no-longer maintained and it is advised you instead look at better_spree_paypal_express (
 https://github.com/radar/better_spree_paypal_express) for a better designed and maintained paypal extension.**
