@@ -174,7 +174,12 @@ Mydataspace = {
       fail: failCallback || function() {}
     };
     if (Array.isArray(data)) {
-      data = { datas: data };
+      if (data.length > 0) {
+        data = { datas: data };
+      } else {
+        successCallback();
+        return;
+      }
     }
     // Store request information to array
     Mydataspace.lastRequestId++;
