@@ -8,7 +8,8 @@ Sync = {
     'demoURL',
     'sourceCodeURL',
     'githubRepoName',
-    'rubygemsGemName'
+    'rubygemsGemName',
+    'tags'
   ],
   GITHUB_FIELDS: {
     forks: 'forks',

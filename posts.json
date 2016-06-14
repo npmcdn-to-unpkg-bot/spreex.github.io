@@ -9,7 +9,13 @@
     {% if post.demoURL %}"demoURL": "{{ post.demoURL }}",{% endif %}
     {% if post.githubRepoName %}"githubRepoName": "{{ post.githubRepoName }}",{% endif %}
     {% if post.rubygemsGemName %}"rubygemsGemName": "{{ post.rubygemsGemName }}",{% endif %}
+    {% if post.sourceCodeURL %}
+    "sourceCodeURL": "{{ post.sourceCodeURL }}",
+    {% elsif post.githubRepoName %}
+    "sourceCodeURL": "https://github.com/{{ post.githubRepoName }}",
+    {% endif %}
     "description": "{{ post.description }}",
+    {% if post.tags %}"tags": "{{ post.tags }}",{% endif %}
   },
   {% endfor %}
 ]
