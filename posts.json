@@ -4,6 +4,7 @@
   {% for post in site.categories.extensions %}
   {
     "name": "{{ post.permalink | split:"/" | last }}",
+    "title": "{{ post.permalink | split:"/" | last }}",
     {% if post.websiteURL %}"websiteURL": "{{ post.websiteURL }}",{% endif %}
     {% if post.demoURL %}"demoURL": "{{ post.demoURL }}",{% endif %}
     {% if post.githubRepoName %}"githubRepoName": "{{ post.githubRepoName }}",{% endif %}
