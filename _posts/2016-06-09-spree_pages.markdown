@@ -3,8 +3,6 @@ layout: post
 date:   2016-03-11 23:51:12 +0500
 permalink: /extensions/spree_pages
 ---
-## Summary
-
 This is a really basic page CMS which fits neatly into the Spree Administration toolbar.
 
 To view your pages from the shop go to:

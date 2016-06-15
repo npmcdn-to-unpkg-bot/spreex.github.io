@@ -12,9 +12,7 @@ via the Admin UI."
 **This extension is largely no-longer maintained and it is advised you instead look at better_spree_paypal_express (
 https://github.com/radar/better_spree_paypal_express) for a better designed and maintained paypal extension.**
 
-# Unfortunate PayPal Express for Spree
-
-[![Build Status](https://secure.travis-ci.org/spree/spree_paypal_express.png?branch=master)](http://travis-ci.org/spree/spree_paypal_express)
+### Unfortunate PayPal Express for Spree
 
 This is the official PayPal Express extension for Spree, based on the extension by PaulCC it has been extended to support Spree's
 Billing Integrations which allows users to configure the PayPal Express gateway including API login / password and signatures fields
@@ -37,7 +35,7 @@ the order (possibly select / change shipping address and method), then the user 
 MUST confirm the order on the Spree site before the payment is authorized / captured from PayPal (and the order is transitioned to the New state).
 
 
-## Installation
+### Installation
 
 1. Add the following line to your application's Gemfile after the `gem 'spree'` line:
 
@@ -51,11 +49,11 @@ MUST confirm the order on the Spree site before the payment is authorized / capt
 
         bundle exec rails g spree_paypal_express:install
 
-## Versions
+### Versions
 
 To determine the correct version of this extension, please refer to the Versionfile.
 
-## IPN & eCheck Support
+### IPN & eCheck Support
 
 eCheck payments are now fully supported and PayPal's Instant Payment Notification service is also supported for receiving updates relating to eCheck payments only. To configure eCheck payments you'll need to:
 
@@ -83,7 +81,7 @@ eCheck payments are now fully supported and PayPal's Instant Payment Notificatio
          [ ] Ask Me
 
 
-## Configuration
+### Configuration
 
 1. Before you begin
 
@@ -121,7 +119,7 @@ Click **Create* , and now add your credentials in the screen that follows:
 
 Click **Update**
 
-## Test Drive
+### Test Drive
 
 While testing PayPal Express checkout locally make sure you're logged into your PayPal **developer** account in another browser window before attempting a PayPal payment, as you'll be redirected and forced to sign in to your developer account.
 
@@ -154,7 +152,7 @@ While testing PayPal Express checkout locally make sure you're logged into your 
 
         rake spec
 
-## NOTES
+### NOTES
 
 To automatically capture funds or enable accepting eCheck payments, add this to you site extension's activate method:
 

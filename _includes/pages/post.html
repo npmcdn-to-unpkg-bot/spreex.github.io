@@ -14,8 +14,12 @@
 
         {% include links_block.html %}
 
-        <div class="post__content">
+        <h2>README</h2>
+        <div id="post__content" class="post__content">
           <div id="post__content_346238_4_6283">{{ include.content }}</div><!-- post__content_346238_4_6283 -->
+          <div class="post__content_footer" onclick="document.getElementById('post__content').classList.add('post__content--extended')">
+            <i class="fa fa-chevron-down fa-5x" aria-hidden="true"></i>
+          </div>
         </div>
 
         <h2>Comments</h2>

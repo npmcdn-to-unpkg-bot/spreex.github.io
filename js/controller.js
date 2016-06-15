@@ -50,6 +50,7 @@ controller = {
             }, function() {
               document.getElementById('post').classList.add('hidden');
               document.getElementById('search').classList.remove('hidden');
+              document.getElementById('post__content').classList.remove('post__content--extended');
             });
             break;
           case 2:

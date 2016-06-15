@@ -8,8 +8,6 @@ rubygemsGemName:  spree_amazon_like_dropdown
 description:      "Provides dropdown taxonomies menu like Amazon's. Based on the jQuery-menu-aim plugin."
 categories: extensions
 ---
-## Spree amazon-like dropdown menu
-
 Provides dropdown taxonomies menu like Amazon's. Based on the [jQuery-menu-aim](https://github.com/kamens/jQuery-menu-aim) plugin.
 
 Demo: https://spreecommerce-demo.herokuapp.com/
