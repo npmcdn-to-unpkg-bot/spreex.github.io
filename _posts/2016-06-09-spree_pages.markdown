@@ -2,6 +2,9 @@
 layout: post
 date:   2016-03-11 23:51:12 +0500
 permalink: /extensions/spree_pages
+categories: extensions
+githubRepoName: sebastyuiop/spree_pages
+description: Simple CMS for basic pages for Spree.
 ---
 This is a really basic page CMS which fits neatly into the Spree Administration toolbar.
 
