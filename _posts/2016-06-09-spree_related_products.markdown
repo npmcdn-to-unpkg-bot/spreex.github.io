@@ -4,7 +4,7 @@ date:   2016-03-11 23:51:12 +0500
 permalink: /extensions/spree_related_products
 categories: extensions
 githubRepoName:   spree-contrib/spree_related_products
-description:      "This extension provides a generic way for you to define different types of relationships between your products, by defining a RelationType for each type of relationship you'd like to maintain."
+description:      Related products extension for Spree Commerce.
 ---
 [![Build Status](https://travis-ci.org/spree-contrib/spree_related_products.svg?branch=master)](https://travis-ci.org/spree-contrib/spree_related_products)
 [![Code Climate](https://codeclimate.com/github/spree-contrib/spree_related_products/badges/gpa.svg)](https://codeclimate.com/github/spree-contrib/spree_related_products)
