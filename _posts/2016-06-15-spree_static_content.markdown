@@ -6,8 +6,6 @@ categories: extensions
 githubRepoName: spree-contrib/spree_static_content
 description: Manage static pages for Spree Commerce.
 ---
-# Spree Static Content
-
 [![Build Status](https://travis-ci.org/spree-contrib/spree_static_content.svg?branch=master)](https://travis-ci.org/spree-contrib/spree_static_content)
 [![Code Climate](https://codeclimate.com/github/spree-contrib/spree_static_content/badges/gpa.svg)](https://codeclimate.com/github/spree-contrib/spree_static_content)
 
