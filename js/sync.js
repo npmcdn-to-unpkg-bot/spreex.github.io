@@ -159,12 +159,12 @@ Sync = {
                         .map(post => ({
                           root: post.root,
                           path: post.path,
-                          fields: [{
-                            name: 'description',
-                            value: post.children['github'].fields['description']
-                          }]
+                          fields: [],
+                          children: ['github']
                         }));
-        Mydataspace.request('entities.change', postsForUpdate, console.scriptComplete.bind(console));
+        Mydataspace.request('entities.get', postsForUpdate, data => {
+          console.log(data);
+        });
       });
     });
   },
