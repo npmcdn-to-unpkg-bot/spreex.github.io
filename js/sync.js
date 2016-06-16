@@ -118,9 +118,7 @@ Sync = {
           }
           var res = { root: Sync.ROOT, path: 'extensions/' + postOnSite.name, fields: [] };
           for (let field of Sync.FIELDS) {
-            var fieldInStorage = common.findByName(postInStorage.fields, field);
-
-            if (typeof fieldInStorage !== 'undefined' && postOnSite[field] === fieldInStorage.value) {
+            if (postInStorage.fields[field] != null && postOnSite[field] === postInStorage.fields[field]) {
               continue;
             }
 
@@ -138,33 +136,37 @@ Sync = {
     return ret;
   },
 
-  // syncStatistics: function() {
-  //   Sync.connectToStorage(() => {
-  //     Sync.getDataFromStorage((postsInStorage) => {
-  //       Promise.all(postsOnSite.map(postOnSite => Sync.getGithubRepo(postOnSite))).then(postsGithubForUpdate => {
-  //         Mydataspace.request('entities.change', postsGithubForUpdate, function() {
-  //           if (typeof console.scriptComplete === 'function') {
-  //             console.scriptComplete();
-  //           }
-  //         });
-  //       });
-  //     });
-  //   });
-  // }
-  //
-  // syncDescriptions: function() {
-  //   Sync.connectToStorage(() => {
-  //     Sync.getDataFromStorage((postsInStorage) => {
-  //       var postsForUpdate = postsInStorage.filter(function(post) {
-  //         return common.isBlank(common.findByName(post.fields, 'description').value) &&
-  //                ;
-  //       });
-  //       for (let post of postsForUpdate) {
-  //
-  //       }
-  //     });
-  //   });
-  // }
+  syncStatistics: function() {
+    Sync.connectToStorage(() => {
+      Sync.getDataFromStorage((postsInStorage) => {
+        Promise.all(postsOnSite.map(postOnSite => Sync.getGithubRepo(postOnSite))).then(postsGithubForUpdate => {
+          Mydataspace.request('entities.change', postsGithubForUpdate, function() {
+            if (typeof console.scriptComplete === 'function') {
+              console.scriptComplete();
+            }
+          });
+        });
+      });
+    });
+  },
+
+  syncDescriptions: function() {
+    Sync.connectToStorage(() => {
+      Sync.getDataFromStorage((postsInStorage) => {
+        var postsForUpdate =
+          postsInStorage.filter(post => common.isBlank(post.fields['description']))
+                        .map(post => ({
+                          root: post.root,
+                          path: post.path,
+                          fields: [{
+                            name: 'description',
+                            value: post.children['github'].fields['description']
+                          }]
+                        }));
+        Mydataspace.request('entities.change', postsForUpdate, console.scriptComplete.bind(console));
+      });
+    });
+  },
 
   sync: function() {
     Sync.connectToStorage(() => {

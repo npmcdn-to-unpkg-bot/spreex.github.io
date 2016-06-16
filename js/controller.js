@@ -10,6 +10,8 @@ controller = {
     window.onpopstate = function(event) {
       controller.load(window.location.href);
     };
+    // Mydataspace.registerFormatter('entities.get', new EntityUnsimplifier());
+    Mydataspace.registerFormatter('entities.get.res', new EntitySimplifier());
     Mydataspace.init({
       apiURL: apiURL,
       websocketURL: websocketURL,
