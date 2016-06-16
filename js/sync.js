@@ -144,8 +144,23 @@ Sync = {
         Sync.getDataFromStorage((postsInStorage) => {
           Mydataspace.request('entities.delete', Sync.getPostsToRemove(postsOnSite, postsInStorage), function() {
             Mydataspace.request('entities.create', Sync.getPostsToCreate(postsOnSite, postsInStorage), function() {
-              Mydataspace.request('entities.change', Sync.getPostsToChange(postsOnSite, postsInStorage), function() {
-                Promise.all(postsOnSite.map(postOnSite => Sync.getGithubRepo(postOnSite))).then(postsForUpdate => {
+              Promise.all(postsOnSite.map(postOnSite => Sync.getGithubRepo(postOnSite))).then(postsGithubForUpdate => {
+                Mydataspace.request('entities.change', postsGithubForUpdate, function() {
+                  var postsForUpdate = Sync.getPostsToChange(postsOnSite, postsInStorage);
+                  postsForUpdate.fields.push({
+                    name: 'githubStars',
+                    value: common.findByName('stars', postsGithubForUpdate.fields).value
+                  });
+                  postsForUpdate.fields.push({
+                    name: 'githubForks',
+                    value: common.findByName('forks', postsGithubForUpdate.fields).value
+                  });
+                  if (common.isBlank(common.findByName('description', postsForUpdate.fields))) {
+                    postsForUpdate.fields.push({
+                      name: 'description',
+                      value: common.findByName('description', postsGithubForUpdate.fields).value
+                    });
+                  }
                   Mydataspace.request('entities.change', postsForUpdate, function() {
                     if (typeof console.scriptComplete === 'function') {
                       console.scriptComplete();
