@@ -16,7 +16,8 @@ Sync = {
     forks: 'forks',
     subscribers_count: 'watchers',
     open_issues: 'issues',
-    watchers: 'stars'
+    watchers: 'stars',
+    description: 'description'
   },
   /**
    * Connect & login to MyDataSpace.
@@ -70,9 +71,6 @@ Sync = {
         path: 'extensions/' + postOnSite.name + '/github',
         fields: fields
       };
-      if (common.isPresent(data['description'])) {
-        ret.description = data['description'];
-      }
       return ret;
     });
   },
