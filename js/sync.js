@@ -80,7 +80,7 @@ Sync = {
   },
 
   isPostExistsInStorage: function(postInStorage, name) {
-    return !common.isNull(Sync.findPostInStorage(postInStorage, name));
+    return Sync.findPostInStorage(postInStorage, name) != null;
   },
 
   findPostInStorage: function(postsInStorage, name) {
@@ -113,7 +113,7 @@ Sync = {
       postsOnSite
         .map(function(postOnSite) {
           var postInStorage = Sync.findPostInStorage(postsInStorage, postOnSite.name);
-          if (common.isNull(postInStorage)) {
+          if (postInStorage == null) {
             return null;
           }
           var res = { root: Sync.ROOT, path: 'extensions/' + postOnSite.name, fields: [] };
@@ -138,6 +138,34 @@ Sync = {
     return ret;
   },
 
+  // syncStatistics: function() {
+  //   Sync.connectToStorage(() => {
+  //     Sync.getDataFromStorage((postsInStorage) => {
+  //       Promise.all(postsOnSite.map(postOnSite => Sync.getGithubRepo(postOnSite))).then(postsGithubForUpdate => {
+  //         Mydataspace.request('entities.change', postsGithubForUpdate, function() {
+  //           if (typeof console.scriptComplete === 'function') {
+  //             console.scriptComplete();
+  //           }
+  //         });
+  //       });
+  //     });
+  //   });
+  // }
+  //
+  // syncDescriptions: function() {
+  //   Sync.connectToStorage(() => {
+  //     Sync.getDataFromStorage((postsInStorage) => {
+  //       var postsForUpdate = postsInStorage.filter(function(post) {
+  //         return common.isBlank(common.findByName(post.fields, 'description').value) &&
+  //                ;
+  //       });
+  //       for (let post of postsForUpdate) {
+  //
+  //       }
+  //     });
+  //   });
+  // }
+
   sync: function() {
     Sync.connectToStorage(() => {
       Sync.getDataFromSite((postsOnSite) => {
@@ -147,11 +175,9 @@ Sync = {
               Mydataspace.request('entities.change', Sync.getPostsToChange(postsOnSite, postsInStorage), function() {
                 Promise.all(postsOnSite.map(postOnSite => Sync.getGithubRepo(postOnSite))).then(postsGithubForUpdate => {
                   Mydataspace.request('entities.change', postsGithubForUpdate, function() {
-
                     if (typeof console.scriptComplete === 'function') {
                       console.scriptComplete();
                     }
-
                   });
                 });
               });

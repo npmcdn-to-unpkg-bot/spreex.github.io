@@ -19,7 +19,7 @@ UIHelper = {
 
   getPathByURL: function(url) {
     var m = url.match(/^[^:]*:\/\/[^\?\/]*(\/[^\?]+)?/);
-    if (common.isNull(m)) {
+    if (m == null) {
       throw new Error('Illegal URL format:' + url);
     }
     return typeof m[1] === 'undefined' ? 'extensions' : UIHelper.parsePath(m[1]).join('/');

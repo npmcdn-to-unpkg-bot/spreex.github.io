@@ -185,7 +185,7 @@ controller = {
 
   updatePostList: function(rowsData) {
     var postList = document.getElementById('post_list');
-    if (common.isNull(postList)) {
+    if (postList == null) {
       throw new Error('Illegal data');
     }
     if (common.isBlank(rowsData.children)) {
@@ -194,7 +194,7 @@ controller = {
     var currentRow = postList.firstChild;
     for (var postData of rowsData) {
       var postName = common.getChildName(postData.path);
-      if (common.isNull(currentRow)) {
+      if (currentRow == null) {
         postList.appendChild(controller.createPostRow(postData));
         continue;
       }
@@ -211,7 +211,7 @@ controller = {
         do {
           var rowToRemove = currentRow;
           currentRow = currentRow.nextElementSibling;
-          if (common.isNull(currentRow)) {
+          if (currentRow == null) {
             postList.appendChild(controller.createPostRow(postData));
             break;
           }
@@ -220,7 +220,7 @@ controller = {
         postList.insertBefore(controller.createPostRow(postData), currentRow);
       }
     }
-    while (!common.isNull(currentRow)) {
+    while (currentRow != null) {
       var rowToRemove = currentRow;
       currentRow = currentRow.nextElementSibling;
       postList.removeChild(rowToRemove);
