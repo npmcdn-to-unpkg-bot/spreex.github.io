@@ -22,6 +22,7 @@
   <script src="/vendor/bootstrap/bootstrap.js" charset="utf-8"></script>
   <script src="http://npmcdn.com/github-api/dist/GitHub.bundle.min.js" charset="utf-8"></script>
   <script src="/vendor/socket.io.js"></script>
+  <script src="/vendor/remarkable.js" charset="utf-8"></script>
 
   <script src="http://my-data.space/js/common.js"></script>
   <script src="http://my-data.space/js/mydataspace.js"></script>
@@ -34,5 +35,24 @@
   <script src="/js/sync.js"></script>
   <script type="text/javascript">
     controller.init('{{ api_url }}', '{{ api_websocket_url }}');
+    // Actual default values
+    var md = new Remarkable({
+      html:         true,        // Enable HTML tags in source
+      xhtmlOut:     false,        // Use '/' to close single tags (<br />)
+      breaks:       false,        // Convert '\n' in paragraphs into <br>
+      langPrefix:   'language-',  // CSS language prefix for fenced blocks
+      linkify:      false,        // Autoconvert URL-like text to links
+    
+      // Enable some language-neutral replacement + quotes beautification
+      typographer:  false,
+
+      // Double + single quotes replacement pairs, when typographer enabled,
+      // and smartquotes on. Set doubles to '«»' for Russian, '„“' for German.
+      quotes: '“”‘’',
+
+      // Highlighter function. Should return escaped HTML,
+      // or '' if the source string is not changed
+      highlight: function (/*str, lang*/) { return ''; }
+    });
   </script>
 </head>

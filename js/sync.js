@@ -9,6 +9,7 @@ Sync = {
     'sourceCodeURL',
     'githubRepoName',
     'rubygemsGemName',
+    'readmeURL',
     'tags'
   ],
   GITHUB_FIELDS: {
@@ -64,11 +65,15 @@ Sync = {
           value: data[field]
         });
       }
-      return {
+      var ret = {
         root: Sync.ROOT,
         path: 'extensions/' + postOnSite.name + '/github',
         fields: fields
       };
+      if (common.isPresent(data['description'])) {
+        ret.description = data['description'];
+      }
+      return ret;
     });
   },
 

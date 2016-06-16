@@ -10,12 +10,24 @@
     {% if post.githubRepoName %}"githubRepoName": "{{ post.githubRepoName }}",{% endif %}
     {% if post.rubygemsGemName %}"rubygemsGemName": "{{ post.rubygemsGemName }}",{% endif %}
     {% if post.sourceCodeURL %}
+
     "sourceCodeURL": "{{ post.sourceCodeURL }}",
-    {% elsif post.githubRepoName %}
-    "sourceCodeURL": "https://github.com/{{ post.githubRepoName }}",
+
+    {% elsif post.githubRepoName %}"sourceCodeURL": "https://github.com/{{ post.githubRepoName }}",{% endif %}
+
+    {% if post.description %}"description": "{{ post.description }}",{% endif %}
+
+    "tags": "{{ post.tags | join:" " }}",
+
+    {% assign stripped_content = post.content | strip %}
+
+    {% if post.readmeURL %}
+    "readmeURL": "{{ post.readmeURL }}",
+    {% elsif stripped_content == "" %}
+    "readmeURL": "https://raw.githubusercontent.com/{{ post.githubRepoName }}/master/README.md",
     {% endif %}
-    "description": "{{ post.description }}",
-    "tags": "{{ post.tags | join:" " }}"
+
+
   },
   {% endfor %}
 ]

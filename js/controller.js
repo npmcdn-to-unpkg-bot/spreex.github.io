@@ -63,6 +63,7 @@ controller = {
               document.getElementById('search').classList.add('hidden');
               document.getElementById('post').classList.remove('hidden');
             });
+
             $.ajax({
               url: url,
               dataType: 'text'
@@ -74,8 +75,9 @@ controller = {
                 throw new Error('Illegal data');
               }
               var html = data.substring(startIndex, endIndex);
-              document.getElementById('post__content_346238_4_6283').innerHTML = html;
-              data.substr(startIndex, endIndex);
+              if (common.isPresent(html)) {
+                document.getElementById('post__content_346238_4_6283').innerHTML = html;
+              }
             });
             break;
           default:
@@ -94,18 +96,21 @@ controller = {
     switch (pathParts[0]) {
       case 'extensions':
         switch (pathParts.length) {
+          // List of posts
           case 1:
             if (controller.getCurrentPath() !== data.path) {
               throw new Error('Illegal path');
             }
             controller.updatePostList(data.children);
             break;
+          // Post details
           case 2:
             if (controller.getCurrentPath() !== data.path) {
               throw new Error('Illegal path');
             }
             controller.fillPost(data, document.getElementById('post'));
             break;
+          // Post child details (for comments/rubygems/github)
           case 3:
             if (controller.getCurrentPath() + '/' + pathParts[2] !== data.path) {
               throw new Error('Illegal path');
@@ -142,7 +147,17 @@ controller = {
     for (var field of data.fields) {
       var elems = parentElement.getElementsByClassName('post__' + field.name);
       if (/URL$/.test(field.name)) {
-        UIHelper.setElemementsURL(elems, field.value);
+        if (field.name === 'readmeURL') {
+          $.ajax({
+            url: field.value,
+            dataType: 'text'
+          }).done(function(data) {
+            var html = md.render(data);
+            document.getElementById('post__content_346238_4_6283').innerHTML = html;
+          });
+        } else {
+          UIHelper.setElemementsURL(elems, field.value);
+        }
       } else {
         UIHelper.setElemementsText(elems, field.value);
       }

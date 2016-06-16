@@ -83,6 +83,11 @@ gulp.task('vendor:sio', function () {
 });
 
 
+gulp.task('vendor:md', function () {
+  return gulp.src('bower_components/remarkable/dist/*.js').pipe(gulp.dest('vendor'));
+});
+
+
 gulp.task('vendor:clean', function() {
   return del(['vendor/**/*']);
 });
@@ -115,7 +120,8 @@ gulp.task('default', function() {
       'vendor:jquery',
       'vendor:bootstrap',
       'vendor:fa',
-      'vendor:sio'
+      'vendor:sio',
+      'vendor:md'
     ],
     'jekyll:clean',
     'jekyll:build');
@@ -129,7 +135,8 @@ gulp.task('serve', function() {
       'vendor:jquery',
       'vendor:bootstrap',
       'vendor:fa',
-      'vendor:sio'
+      'vendor:sio',
+      'vendor:md'
     ],
     'jekyll:clean',
     'jekyll:serve');
