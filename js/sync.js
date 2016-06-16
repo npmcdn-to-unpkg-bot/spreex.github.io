@@ -27,6 +27,7 @@ Sync = {
       done();
       return;
     }
+    Mydataspace.registerFormatter('entities.get.res', new EntitySimplifier());
     Mydataspace.init({
       apiURL: 'http://api-mydatasp.rhcloud.com',
       websocketURL: 'http://api-mydatasp.rhcloud.com:8000',
