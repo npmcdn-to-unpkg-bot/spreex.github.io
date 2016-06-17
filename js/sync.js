@@ -178,7 +178,7 @@ Sync = {
             data.map(function(post) {
               return {
                 root: Sync.ROOT,
-                path: common.getParentPath(post.path),
+                path: post.path,
                 fields: [{ value: post.children['github'].fields['description'], name: 'description' }]
               };
             });
