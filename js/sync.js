@@ -174,7 +174,10 @@ Sync = {
                   children: ['github']
                 }));
         Mydataspace.request('entities.get', postsForUpdate, data => {
-          console.log(data);
+          if (MDSConsole != null) {
+            MDSConsole.info('Descriptions updated successful');
+            MDSConsole.success();
+          }
         });
       });
     });
@@ -189,8 +192,8 @@ Sync = {
               Mydataspace.request('entities.change', Sync.getPostsToChange(postsOnSite, postsInStorage), function() {
                 Promise.all(postsOnSite.map(postOnSite => Sync.getGithubRepo(postOnSite))).then(postsGithubForUpdate => {
                   Mydataspace.request('entities.change', postsGithubForUpdate, function() {
-                    if (typeof console.scriptComplete === 'function') {
-                      console.scriptComplete();
+                    if (MDSConsole != null) {
+                      MDSConsole.success();
                     }
                   });
                 });
