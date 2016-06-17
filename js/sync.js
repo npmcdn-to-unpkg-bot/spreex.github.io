@@ -179,7 +179,7 @@ Sync = {
               return {
                 root: Sync.ROOT,
                 path: common.getParentPath(post.path),
-                fields: [{ value: post.fields['description'], name: post.children['github'].fields['description'] }]
+                fields: [{ value: post.children['github'].fields['description'], name: 'description' }]
               };
             });
           Mydataspace.request('entities.change', postsForUpdate, function() {
