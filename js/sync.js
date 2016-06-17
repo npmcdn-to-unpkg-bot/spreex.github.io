@@ -177,7 +177,7 @@ Sync = {
           let postsForUpdate =
             data.map(function(post) {
               return {
-                root: ROOT,
+                root: Sync.ROOT,
                 path: common.getParentPath(post.path),
                 fields: [{ value: post.fields['description'], name: description }]
               };
