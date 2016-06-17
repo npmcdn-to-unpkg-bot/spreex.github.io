@@ -165,13 +165,14 @@ Sync = {
     Sync.connectToStorage(() => {
       Sync.getDataFromStorage((postsInStorage) => {
         var postsForUpdate =
-          Sync.filter(postsInStorage, post => common.isBlank(post.fields['description']))
-                        .map(post => ({
-                          root: post.root,
-                          path: post.path,
-                          fields: [],
-                          children: ['github']
-                        }));
+          common.mapToArray(postsInStorage, false)
+                .filter(post => common.isBlank(post.fields['description']))
+                .map(post => ({
+                  root: post.root,
+                  path: post.path,
+                  fields: [],
+                  children: ['github']
+                }));
         Mydataspace.request('entities.get', postsForUpdate, data => {
           console.log(data);
         });
