@@ -151,11 +151,21 @@ Sync = {
     });
   },
 
+  filter: function(obj, predicate) {
+    var result = {};
+    for (key in obj) {
+      if (obj.hasOwnProperty(key) && !predicate(obj[key])) {
+        result[key] = obj[key];
+      }
+    }
+    return result;
+  },
+
   syncDescriptions: function() {
     Sync.connectToStorage(() => {
       Sync.getDataFromStorage((postsInStorage) => {
         var postsForUpdate =
-          postsInStorage.filter(post => common.isBlank(post.fields['description']))
+          Sync.filter(postsInStorage, post => common.isBlank(post.fields['description']))
                         .map(post => ({
                           root: post.root,
                           path: post.path,
