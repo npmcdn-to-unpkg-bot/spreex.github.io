@@ -182,7 +182,7 @@ Sync = {
                 fields: [{ value: post.fields['description'], name: post.description }]
               };
             });
-          Mydataspace.request('entities.change', dataForUpdate, function() {
+          Mydataspace.request('entities.change', postsForUpdate, function() {
             if (MDSConsole != null) {
               MDSConsole.info('Descriptions updated successful');
               MDSConsole.success();
