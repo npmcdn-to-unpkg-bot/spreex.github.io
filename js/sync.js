@@ -164,7 +164,7 @@ Sync = {
   syncDescriptions: function() {
     Sync.connectToStorage(() => {
       Sync.getDataFromStorage((postsInStorage) => {
-        var postsForUpdate =
+        let postsForUpdate =
           common.mapToArray(postsInStorage, false)
                 .filter(post => common.isBlank(post.fields['description']))
                 .map(post => ({
@@ -174,10 +174,18 @@ Sync = {
                   children: ['github']
                 }));
         Mydataspace.request('entities.get', postsForUpdate, data => {
-          if (MDSConsole != null) {
-            MDSConsole.info('Descriptions updated successful');
-            MDSConsole.success();
-          }
+          let postsForUpdate =
+            data.map(function(post) {
+              root: ROOT,
+              path: common.getParentPath(post.path),
+              fields: [{ value: post.fields['description'], name: description }]
+            });
+          Mydataspace.request('entities.change', dataForUpdate, function() {
+            if (MDSConsole != null) {
+              MDSConsole.info('Descriptions updated successful');
+              MDSConsole.success();
+            }
+          });
         });
       });
     });
