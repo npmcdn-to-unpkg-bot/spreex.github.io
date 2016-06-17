@@ -176,9 +176,11 @@ Sync = {
         Mydataspace.request('entities.get', postsForUpdate, data => {
           let postsForUpdate =
             data.map(function(post) {
-              root: ROOT,
-              path: common.getParentPath(post.path),
-              fields: [{ value: post.fields['description'], name: description }]
+              return {
+                root: ROOT,
+                path: common.getParentPath(post.path),
+                fields: [{ value: post.fields['description'], name: description }]
+              };
             });
           Mydataspace.request('entities.change', dataForUpdate, function() {
             if (MDSConsole != null) {
