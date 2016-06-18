@@ -1,3 +1,4 @@
+console.log('SCRIPT: Sync.js');
 Sync = {
   URL: 'http://spreex.github.io',
   ROOT: 'spreex.github.io',
