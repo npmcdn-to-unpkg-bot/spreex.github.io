@@ -85,7 +85,7 @@ Sync = {
   getPostsToCreate: function(postsOnSite, postsInStorage) {
     var ret =
       postsOnSite
-        .filter(postOnSite => postsInStorage.children[postOnSite.name] != null)
+        .filter(postOnSite => postsInStorage[postOnSite.name] != null)
         .map(function(postOnSite) {
           var res = { root: Sync.ROOT, path: 'extensions/' + postOnSite.name, fields: [] };
           for (let field of Sync.FIELDS) {
@@ -103,7 +103,7 @@ Sync = {
     var ret =
       postsOnSite
         .map(function(postOnSite) {
-          var postInStorage = postsInStorage.children[postOnSite.name];
+          var postInStorage = postsInStorage[postOnSite.name];
           if (postInStorage == null) {
             return null;
           }
