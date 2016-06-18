@@ -172,6 +172,9 @@ controller = {
   },
 
   fillPostChild: function(childData, parentElement) {
+    if (common.isBank(childField.value)) {
+      return;
+    }
     if (typeof parentElement === 'undefined') {
       parentElement = document;
     }
