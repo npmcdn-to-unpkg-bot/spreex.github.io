@@ -40,12 +40,6 @@ Sync = {
     Mydataspace.connect();
   },
 
-  getDataFromStorage: function(done) {
-    Mydataspace.request('entities.get', { root: Sync.ROOT, path: 'extensions', children: [] }, function(data) {
-      done(data.children);
-    });
-  },
-
   getDataFromSite: function(done) {
     var oReq = new XMLHttpRequest();
     oReq.addEventListener('load', function() {
@@ -76,26 +70,20 @@ Sync = {
     });
   },
 
+  getDataFromStorage: function(done) {
+    Mydataspace.request('entities.get', { root: Sync.ROOT, path: 'extensions', children: [] }, function(data) {
+      done(data.children);
+    });
+  },
+
   getPostsToRemove: function(postsOnSite, postsInStorage) {
     return common.permit(postsInStorage.filter(post => typeof common.findByName(postsOnSite, common.getChildName(post.path)) === 'undefined'), ['root', 'path']);
-  },
-
-  isPostExistsInStorage: function(postInStorage, name) {
-    return Sync.findPostInStorage(postInStorage, name) != null;
-  },
-
-  findPostInStorage: function(postsInStorage, name) {
-    var ret = postsInStorage.filter(postInStorage => postInStorage.root === Sync.ROOT && postInStorage.path === 'extensions/' + name);
-    if (ret.length > 0) {
-      return ret[0];
-    }
-    return null;
   },
 
   getPostsToCreate: function(postsOnSite, postsInStorage) {
     var ret =
       postsOnSite
-        .filter(postOnSite => !Sync.isPostExistsInStorage(postsInStorage, postOnSite.name))
+        .filter(postOnSite => postsInStorage.children[postOnSite.name] != null)
         .map(function(postOnSite) {
           var res = { root: Sync.ROOT, path: 'extensions/' + postOnSite.name, fields: [] };
           for (let field of Sync.FIELDS) {
@@ -113,7 +101,7 @@ Sync = {
     var ret =
       postsOnSite
         .map(function(postOnSite) {
-          var postInStorage = Sync.findPostInStorage(postsInStorage, postOnSite.name);
+          var postInStorage = postsInStorage.children[postOnSite.name];
           if (postInStorage == null) {
             return null;
           }
@@ -142,8 +130,8 @@ Sync = {
       Sync.getDataFromStorage((postsInStorage) => {
         Promise.all(postsOnSite.map(postOnSite => Sync.getGithubRepo(postOnSite))).then(postsGithubForUpdate => {
           Mydataspace.request('entities.change', postsGithubForUpdate, function() {
-            if (typeof console.scriptComplete === 'function') {
-              console.scriptComplete();
+            if (MDSConsole != null) {
+              MDSConsole.success('Statistics successfully updated!');
             }
           });
         });
@@ -203,7 +191,7 @@ Sync = {
                 Promise.all(postsOnSite.map(postOnSite => Sync.getGithubRepo(postOnSite))).then(postsGithubForUpdate => {
                   Mydataspace.request('entities.change', postsGithubForUpdate, function() {
                     if (MDSConsole != null) {
-                      MDSConsole.success();
+                      MDSConsole.success('Posts successfully synchronized!');
                     }
                   });
                 });
@@ -214,5 +202,4 @@ Sync = {
       });
     });
   }
-
 }
