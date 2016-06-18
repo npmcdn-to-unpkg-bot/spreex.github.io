@@ -178,7 +178,7 @@ controller = {
     var childPrefix = 'post__' + common.getChildName(childData.path) + '_';
     for (var childField of childData.fields) {
       if (common.isBlank(childField.value)) {
-        return;
+        continue;
       }
       var elems = parentElement.getElementsByClassName(childPrefix + childField.name);
       UIHelper.setElemementsText(elems, childField.value);
