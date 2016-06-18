@@ -77,7 +77,9 @@ Sync = {
   },
 
   getPostsToRemove: function(postsOnSite, postsInStorage) {
-    return common.permit(postsInStorage.filter(post => typeof common.findByName(postsOnSite, common.getChildName(post.path)) === 'undefined'), ['root', 'path']);
+    return common.permit(
+      common.mapToArray(postsInStorage, false)
+            .filter(post => typeof common.findByName(postsOnSite, common.getChildName(post.path)) === 'undefined'), ['root', 'path']);
   },
 
   getPostsToCreate: function(postsOnSite, postsInStorage) {
