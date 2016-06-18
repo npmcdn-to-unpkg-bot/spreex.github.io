@@ -1,7 +1,7 @@
 'use strict';
 
 console.log('SCRIPT: Sync.js');
-Sync = {
+var Sync = {
   URL: 'http://spreex.github.io',
   ROOT: 'spreex.github.io',
   FIELDS: [
