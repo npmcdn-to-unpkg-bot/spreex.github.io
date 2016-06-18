@@ -1,3 +1,5 @@
+'use strict';
+
 console.log('SCRIPT: Sync.js');
 Sync = {
   URL: 'http://spreex.github.io',
