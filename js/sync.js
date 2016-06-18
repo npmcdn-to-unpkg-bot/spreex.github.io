@@ -188,9 +188,13 @@ var Sync = {
   },
 
   sync: function() {
+    console.log('Start posts syncronization');
     Sync.connectToStorage(() => {
+      console.log('Connected to storage');
       Sync.getDataFromSite((postsOnSite) => {
+        console.log('Received posts from site');
         Sync.getDataFromStorage((postsInStorage) => {
+          console.log('Received posts from storage');
           Mydataspace.request('entities.delete', Sync.getPostsToRemove(postsOnSite, postsInStorage), function() {
             console.log('Excess posts deleted');
             Mydataspace.request('entities.create', Sync.getPostsToCreate(postsOnSite, postsInStorage), function() {
