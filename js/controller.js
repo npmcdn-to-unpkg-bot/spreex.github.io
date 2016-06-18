@@ -177,7 +177,7 @@ controller = {
     }
     var childPrefix = 'post__' + common.getChildName(childData.path) + '_';
     for (var childField of childData.fields) {
-      if (common.isBank(childField.value)) {
+      if (common.isBlank(childField.value)) {
         return;
       }
       var elems = parentElement.getElementsByClassName(childPrefix + childField.name);
