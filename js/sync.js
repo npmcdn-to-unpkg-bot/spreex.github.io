@@ -173,6 +173,7 @@ Sync = {
               };
             });
           Mydataspace.request('entities.change', postsForUpdate, function() {
+            console.log('Descriptions updated successful');
             if (MDSConsole != null) {
               MDSConsole.info('Descriptions updated successful');
               MDSConsole.success();
@@ -188,10 +189,14 @@ Sync = {
       Sync.getDataFromSite((postsOnSite) => {
         Sync.getDataFromStorage((postsInStorage) => {
           Mydataspace.request('entities.delete', Sync.getPostsToRemove(postsOnSite, postsInStorage), function() {
+            console.log('Excess posts deleted');
             Mydataspace.request('entities.create', Sync.getPostsToCreate(postsOnSite, postsInStorage), function() {
+              console.log('New posts created');
               Mydataspace.request('entities.change', Sync.getPostsToChange(postsOnSite, postsInStorage), function() {
+                console.log('Changed posts updated');
                 Promise.all(postsOnSite.map(postOnSite => Sync.getGithubRepo(postOnSite))).then(postsGithubForUpdate => {
                   Mydataspace.request('entities.change', postsGithubForUpdate, function() {
+                    console.log('Posts successfully synchronized!');
                     if (MDSConsole != null) {
                       MDSConsole.success('Posts successfully synchronized!');
                     }
