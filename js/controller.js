@@ -172,14 +172,14 @@ controller = {
   },
 
   fillPostChild: function(childData, parentElement) {
-    if (common.isBank(childField.value)) {
-      return;
-    }
     if (typeof parentElement === 'undefined') {
       parentElement = document;
     }
     var childPrefix = 'post__' + common.getChildName(childData.path) + '_';
     for (var childField of childData.fields) {
+      if (common.isBank(childField.value)) {
+        return;
+      }
       var elems = parentElement.getElementsByClassName(childPrefix + childField.name);
       UIHelper.setElemementsText(elems, childField.value);
     }
