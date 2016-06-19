@@ -38,6 +38,9 @@ var Sync = {
         Mydataspace.on('login', function() {
           done();
         });
+        Mydataspace.on('unauthorized', function() {
+          MDSConsole.fail('Unauthorized');
+        });
       }
     });
     Mydataspace.connect();
