@@ -83,7 +83,7 @@ var Sync = {
         } else {
           for (let fieldField in field) {
             fields.push({
-              name: field[fieldField],
+              name: Sync.GITHUB_FIELDS[field][fieldField],
               value: data[field][fieldField]
             });
           }
