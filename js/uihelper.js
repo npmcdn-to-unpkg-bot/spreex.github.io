@@ -5,6 +5,16 @@ UIHelper = {
     }
   },
 
+  setElemementsSRC: function(elems, url) {
+    for (var el of elems) {
+      if (common.isBlank(url)) {
+        el.href = 'img/no-image.png';
+      } else {
+        el.src = url;
+      }
+    }
+  },
+
   setElemementsURL: function(elems, url) {
     for (var el of elems) {
       if (common.isBlank(url)) {

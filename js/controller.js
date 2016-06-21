@@ -183,6 +183,8 @@ controller = {
       var elems = parentElement.getElementsByClassName(childPrefix + childField.name);
       if (/URL$/.test(field.name) || field.name === 'url') {
         UIHelper.setElemementsURL(elems, childField.value);
+      } else if (/IMG$/.test(field.name) || field.name === 'img') {
+        UIHelper.setElemementsSRC(elems, childField.value);
       } else {
         UIHelper.setElemementsText(elems, childField.value);
       }

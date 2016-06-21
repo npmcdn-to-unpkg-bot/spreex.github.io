@@ -23,6 +23,11 @@ var Sync = {
     pushed_at: 'lastCommitDate',
     url: 'url',
     homepage: 'homepageURL',
+    owner: {
+      url: 'ownerURL',
+      login: 'ownerLogin',
+      avatar_url: 'ownerIMG'
+    }
   },
   // GITHUB_COMMIT_AUTHOR_FIELDS: {
   //   login: 'lastCommitAuthorLogin',
@@ -70,10 +75,19 @@ var Sync = {
       const fields = [];
       const data = details.data;
       for (let field in Sync.GITHUB_FIELDS) {
-        fields.push({
-          name: Sync.GITHUB_FIELDS[field],
-          value: data[field]
-        });
+        if (typeof field === 'string') {
+          fields.push({
+            name: Sync.GITHUB_FIELDS[field],
+            value: data[field]
+          });
+        } else {
+          for (let fieldField in field) {
+            fields.push({
+              name: field[fieldField],
+              value: data[field][fieldField]
+            });
+          }
+        }
       }
       var ret = {
         root: Sync.ROOT,
