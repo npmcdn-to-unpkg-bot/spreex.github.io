@@ -181,9 +181,9 @@ controller = {
         continue;
       }
       var elems = parentElement.getElementsByClassName(childPrefix + childField.name);
-      if (/URL$/.test(field.name) || field.name === 'url') {
+      if (/URL$/.test(childField.name) || childField.name === 'url') {
         UIHelper.setElemementsURL(elems, childField.value);
-      } else if (/IMG$/.test(field.name) || field.name === 'img') {
+      } else if (/IMG$/.test(childField.name) || childField.name === 'img') {
         UIHelper.setElemementsSRC(elems, childField.value);
       } else {
         UIHelper.setElemementsText(elems, childField.value);
