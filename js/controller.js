@@ -148,7 +148,7 @@ controller = {
     }
     for (var field of data.fields) {
       var elems = parentElement.getElementsByClassName('post__' + field.name);
-      if (/URL$/.test(field.name)) {
+      if (/URL$/.test(field.name) || field.name === 'url') {
         if (field.name === 'readmeURL') {
           $.ajax({
             url: field.value,
@@ -181,7 +181,11 @@ controller = {
         continue;
       }
       var elems = parentElement.getElementsByClassName(childPrefix + childField.name);
-      UIHelper.setElemementsText(elems, childField.value);
+      if (/URL$/.test(field.name) || field.name === 'url') {
+        UIHelper.setElemementsURL(elems, childField.value);
+      } else {
+        UIHelper.setElemementsText(elems, childField.value);
+      }
     }
     var nElems =
       document.getElementsByClassName('post__n_' + common.getChildName(childData.path));

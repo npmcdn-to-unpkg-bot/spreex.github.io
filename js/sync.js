@@ -1,6 +1,5 @@
 'use strict';
 
-console.log('SCRIPT: Sync.js');
 var Sync = {
   URL: 'http://spreex.github.io',
   ROOT: 'spreex.github.io',
@@ -20,8 +19,17 @@ var Sync = {
     subscribers_count: 'watchers',
     open_issues: 'issues',
     watchers: 'stars',
-    description: 'description'
+    description: 'description',
+    pushed_at: 'lastCommitDate',
+    url: 'url',
+    homepage: 'homepageURL',
   },
+  // GITHUB_COMMIT_AUTHOR_FIELDS: {
+  //   login: 'lastCommitAuthorLogin',
+  //   avatar_url: 'lastCommitAuthorAvatarURL',
+  //   url: 'lastCommitAuthorURL',
+  // },
+
   /**
    * Connect & login to MyDataSpace.
    */
