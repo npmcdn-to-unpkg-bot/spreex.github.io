@@ -73,7 +73,7 @@ var Sync = {
     const gh = new GitHub();
     const parts = postOnSite.githubRepoName.split('/');
     return gh.getRepo(parts[0], parts[1]).listCommits().then(function(commits) {
-      var lastCommit = commits[0].data;
+      var lastCommit = commits.data[0];
       var ret = {
         root: Sync.ROOT,
         path: 'extensions/' + postOnSite.name + '/github',
