@@ -29,6 +29,7 @@ var Sync = {
       avatar_url: 'ownerIMG'
     }
   },
+
   // GITHUB_COMMIT_AUTHOR_FIELDS: {
   //   login: 'lastCommitAuthorLogin',
   //   avatar_url: 'lastCommitAuthorAvatarURL',
@@ -68,6 +69,49 @@ var Sync = {
     oReq.send();
   },
 
+  getGithubCommit(function(postOnSite) {
+    const gh = new GitHub();
+    const parts = postOnSite.githubRepoName.split('/');
+    return gh.getRepo(parts[0], parts[1]).listCommits().then(function(commits) {
+      var lastCommit = commits[0];
+      var ret = {
+        root: Sync.ROOT,
+        path: 'extensions/' + postOnSite.name + '/github',
+        fields: [
+          {
+            name: 'lastCommitAuthorName',
+            value: lastCommit.commit.author.name
+          },
+          {
+            name: 'lastCommitAuthorEmail',
+            value: lastCommit.commit.author.email
+          },
+          {
+            name: 'lastCommitDate',
+            value: lastCommit.commit.author.date
+          },
+          {
+            name: 'lastCommitMessge',
+            value: lastCommit.message
+          },
+          {
+            name: 'lastCommitSHA',
+            value: lastCommit.sha
+          },
+          {
+            name: 'lastCommitAuthorLogin',
+            value: lastCommit.author.login
+          },
+          {
+            name: 'lastCommitAuthorIMG',
+            value: lastCommit.author.avatar_url
+          },
+        ]
+      };
+      return ret;
+    });
+  });
+
   getGithubRepo: function(postOnSite) {
     const gh = new GitHub();
     const parts = postOnSite.githubRepoName.split('/');
@@ -95,7 +139,9 @@ var Sync = {
         fields: fields
       };
       return ret;
-    });
+    })
+    .then(data => Promise.all([data, Sync.getGithubCommit(postOnSite)]))
+    .then(args => common.extend(args[0], args[1]));
   },
 
   getDataFromStorage: function(done) {
