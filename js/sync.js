@@ -60,7 +60,7 @@ var Sync = {
     Mydataspace.connect();
   },
 
-  getDataFromSite: function(done) {
+  getDataFromSite(done) {
     var oReq = new XMLHttpRequest();
     oReq.addEventListener('load', function() {
       done(eval('(' + this.responseText + ')'));
@@ -69,7 +69,7 @@ var Sync = {
     oReq.send();
   },
 
-  getGithubCommit(function(postOnSite) {
+  getGithubCommit: function(postOnSite) {
     const gh = new GitHub();
     const parts = postOnSite.githubRepoName.split('/');
     return gh.getRepo(parts[0], parts[1]).listCommits().then(function(commits) {
