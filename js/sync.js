@@ -110,7 +110,7 @@ var Sync = {
       };
       return ret;
     });
-  });
+  },
 
   getGithubRepo: function(postOnSite) {
     const gh = new GitHub();
