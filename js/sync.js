@@ -21,10 +21,10 @@ var Sync = {
     watchers: 'stars',
     description: 'description',
     pushed_at: 'lastCommitDate',
-    url: 'url',
+    html_url: 'url',
     homepage: 'homepageURL',
     owner: {
-      url: 'ownerURL',
+      html_url: 'ownerURL',
       login: 'ownerLogin',
       avatar_url: 'ownerIMG'
     }
