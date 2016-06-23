@@ -30,3 +30,8 @@
 .post__github_ownerIMG, .post__github_lastCommitAuthorIMG {
   width: 30px;
 }
+
+.post__github_lastCommitDate {
+  white-space: nowrap;
+  display: block;
+}

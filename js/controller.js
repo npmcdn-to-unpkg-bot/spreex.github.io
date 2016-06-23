@@ -183,6 +183,8 @@ controller = {
       var elems = parentElement.getElementsByClassName(childPrefix + childField.name);
       if (/URL$/.test(childField.name) || childField.name === 'url') {
         UIHelper.setElemementsURL(elems, childField.value);
+      } else if (/Date$/.test(childField.name) || childField.name === 'date') {
+        UIHelper.setElemementsText(elems, new Date(childField.value).toLocaleString());
       } else if (/IMG$/.test(childField.name) || childField.name === 'img') {
         UIHelper.setElemementsSRC(elems, childField.value);
       } else {

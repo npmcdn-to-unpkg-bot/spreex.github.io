@@ -112,8 +112,8 @@ var Sync = {
     });
   },
 
-  getGithubRepo: function(postOnSite) {
-    const gh = new GitHub();
+  getGithubRepo: function(login, password, postOnSite) {
+    const gh = new GitHub({ username: login, password: password });
     const parts = postOnSite.githubRepoName.split('/');
     return gh.getRepo(parts[0], parts[1]).getDetails().then(function(details) {
       const fields = [];
@@ -201,10 +201,10 @@ var Sync = {
     return ret;
   },
 
-  syncStatistics: function() {
+  syncStatistics: function(login, password) {
     Sync.connectToStorage(() => {
       Sync.getDataFromStorage((postsInStorage) => {
-        Promise.all(postsOnSite.map(postOnSite => Sync.getGithubRepo(postOnSite))).then(postsGithubForUpdate => {
+        Promise.all(postsOnSite.map(postOnSite => Sync.getGithubRepo(login, password, postOnSite))).then(postsGithubForUpdate => {
           Mydataspace.request('entities.change', postsGithubForUpdate, function() {
             if (MDSConsole != null) {
               MDSConsole.success('Statistics successfully updated!');
@@ -258,7 +258,7 @@ var Sync = {
     });
   },
 
-  sync: function() {
+  sync: function(login, password) {
     console.log('Start posts syncronization');
     Sync.connectToStorage(() => {
       console.log('Connected to storage');
@@ -272,7 +272,7 @@ var Sync = {
               console.log('New posts created');
               Mydataspace.request('entities.change', Sync.getPostsToChange(postsOnSite, postsInStorage), function() {
                 console.log('Changed posts updated');
-                Promise.all(postsOnSite.map(postOnSite => Sync.getGithubRepo(postOnSite))).then(postsGithubForUpdate => {
+                Promise.all(postsOnSite.map(postOnSite => Sync.getGithubRepo(login, password, postOnSite))).then(postsGithubForUpdate => {
                   Mydataspace.request('entities.change', postsGithubForUpdate, function() {
                     console.log('Posts successfully synchronized!');
                     if (MDSConsole != null) {
