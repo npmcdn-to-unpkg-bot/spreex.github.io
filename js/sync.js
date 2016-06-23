@@ -69,7 +69,7 @@ var Sync = {
     oReq.send();
   },
 
-  getGithubCommit: function(postOnSite) {
+  getGithubCommit: function(login, password, postOnSite) {
     const gh = new GitHub();
     const parts = postOnSite.githubRepoName.split('/');
     return gh.getRepo(parts[0], parts[1]).listCommits().then(function(commits) {
@@ -140,7 +140,7 @@ var Sync = {
       };
       return ret;
     })
-    .then(data => Promise.all([data, Sync.getGithubCommit(postOnSite)]))
+    .then(data => Promise.all([data, Sync.getGithubCommit(login, password, postOnSite)]))
     .then(args => common.extend(args[0], args[1]));
   },
 
