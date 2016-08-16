@@ -6,7 +6,7 @@ controller = {
     return window.location.href;
   },
 
-  init: function(apiURL, websocketURL) {
+  init: function(apiURL, websocketURL, clientId) {
     window.onpopstate = function(event) {
       controller.load(window.location.href);
     };
@@ -15,7 +15,7 @@ controller = {
     Mydataspace.init({
       apiURL: apiURL,
       websocketURL: websocketURL,
-      clientId: '{{ client_id }}',
+      clientId: clientId,
       permission: 'spreex.github.io',
       connected: function() {
         Mydataspace.on('entities.get.res', controller.handle);
