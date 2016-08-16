@@ -33,6 +33,12 @@ controller = {
     Mydataspace.connect();
   },
 
+  /**
+   * Load data by URL with using Mydataspace API.
+   * @param url URL of the requested page.
+   * @param options Parameters of loading. Now can contains field 'search' for
+   *                filtering extensions.
+   */
   load: function(url, options) {
     if (typeof options === 'undefined') {
       options = {};
@@ -45,7 +51,7 @@ controller = {
         return;
       case 'extensions':
         switch (newPathParts.length) {
-          case 1:
+          case 1: // laod extension list
             Mydataspace.request('entities.get', {
               root: controller.ROOT,
               path: 'extensions',
@@ -57,7 +63,7 @@ controller = {
               document.getElementById('post__content').classList.remove('post__content--extended');
             });
             break;
-          case 2:
+          case 2: // load concret extension
             Mydataspace.request('entities.get', {
               root: controller.ROOT,
               path: newPath,
@@ -67,7 +73,6 @@ controller = {
               document.getElementById('search').classList.add('hidden');
               document.getElementById('post').classList.remove('hidden');
             });
-
             $.ajax({
               url: url,
               dataType: 'text'
@@ -95,6 +100,9 @@ controller = {
     history.pushState(stateObj, '', url);
   },
 
+  /**
+   * Handles data received from Mydataspace API.
+   */
   handle: function(data) {
     var pathParts = UIHelper.parsePath(data.path);
     switch (pathParts[0]) {
@@ -114,7 +122,7 @@ controller = {
             }
             controller.fillPost(data, document.getElementById('post'));
             break;
-          // Post child details (for comments/rubygems/github)
+          // Post child's details (for example: comments, rubygems, github)
           case 3:
             if (controller.getCurrentPath() + '/' + pathParts[2] !== data.path) {
               throw new Error('Illegal path');

@@ -39,6 +39,9 @@
   transform: translateY(-50%);
   margin-top: -5px !important;
   font-weight: bold;
+  left: 0;
+  right: 100px;
+  overflow: hidden;
 }
 
 .post__title--row {
