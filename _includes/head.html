@@ -1,9 +1,11 @@
 {% if jekyll.environment == "local" %}
   {% assign api_url = "http://localhost:8080" %}
   {% assign api_websocket_url = "http://localhost:8080" %}
+  {% assign client_id = 'spreex.github.io' %}
 {% else %}
   {% assign api_url = site.api_url %}
   {% assign api_websocket_url = site.api_websocket_url %}
+  {% assign client_id = site.client_id %}
 {% endif %}
 <head>
   <meta charset="utf-8">
@@ -42,7 +44,7 @@
       breaks:       false,        // Convert '\n' in paragraphs into <br>
       langPrefix:   'language-',  // CSS language prefix for fenced blocks
       linkify:      false,        // Autoconvert URL-like text to links
-    
+
       // Enable some language-neutral replacement + quotes beautification
       typographer:  false,
 

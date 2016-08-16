@@ -15,6 +15,8 @@ controller = {
     Mydataspace.init({
       apiURL: apiURL,
       websocketURL: websocketURL,
+      clientId: '{{ client_id }}',
+      permission: 'spreex.github.io',
       connected: function() {
         Mydataspace.on('entities.get.res', controller.handle);
         Mydataspace.on('login', function() {
