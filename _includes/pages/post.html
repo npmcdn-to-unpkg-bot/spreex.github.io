@@ -21,12 +21,49 @@
           </div>
         </div>
 
-        <h2>Comments</h2>
-        <div id="post__no_comments" class="well">No comments here</div>
-        <div class="post__comments">
+        <h2>Comments (<span class="post__n_comments">0</span>)</h2>
+
+        <div id="post__new_comment" class="new_comment">
+          <form>
+            <div class="form-group new_comment__textarea_wrap">
+              <textarea class="form-control new_comment__textarea"
+                        placeholder="Write a comment..."></textarea>
+            </div>
+            <div class="form-group text-right">
+              <button type="button" class="btn btn-success new_comment__button">Post comment</button>
+            </div>
+          </form>
+          <script type="text/javascript">
+            $('#post__new_comment .new_comment__textarea').on('focus', function() {
+              $(this).parent().parent().find('.new_comment__button').show();
+              $(this).addClass('new_comment__textarea--extended');
+            });
+            $('#post__new_comment .new_comment__textarea').on('keydown', function() {
+              var self = this;
+              setTimeout(function(){
+                self.style.cssText = 'height: auto; padding: 0';
+                self.style.cssText = 'height: ' + self.scrollHeight + 'px';
+              }, 0);
+            });
+            $('#post__new_comment .new_comment__button').on('click', function() {
+              controller.postComment(
+                $('#post__new_comment .new_comment__textarea'));
+            });
+          </script>
         </div>
 
+        <div class="hidden">
+          <div id="post__no_comments" class="well">No comments here</div>
+        </div>
+
+        <div id="post__loading_comments" class="post__loading_comments">
+          <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+        </div>
+
+        <div id="post__comments">
+        </div>
       </div>
+
       <div class="col-md-3">
         {% include github_block.html %}
         {% include rubygems_block.html %}

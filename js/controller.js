@@ -19,6 +19,7 @@ controller = {
       permission: 'spreex.github.io',
       connected: function() {
         Mydataspace.on('entities.get.res', controller.handle);
+        Mydataspace.on('entities.create.res', controller.onCreated);
         Mydataspace.on('login', function() {
           document.getElementById('main_menu__signout_item').classList.remove('hidden');
           document.getElementById('main_menu__signin_item').classList.add('hidden');
@@ -33,9 +34,32 @@ controller = {
     Mydataspace.connect();
   },
 
+  onCreated: function(data) {
+    var pathParts = UIHelper.parsePath(data.path);
+    if (pathParts[0] !== 'extensions') {
+      return;
+    }
+    switch (pathParts.length) {
+      case 2: // new extension created
+        break;
+      case 4:
+        switch (pathParts[2]) {
+          case 'comments':
+            $('#post__comments').prepend(
+              controller.getCommentHTML(data));
+            var n = parseInt($('.post__n_comments').get(0).innerText);
+            $('.post__n_comments').text(n + 1);
+            break;
+          default:
+        }
+        break;
+      default:
+    }
+  },
+
   /**
-   * Load data by URL with using Mydataspace API.
-   * @param url URL of the requested page.
+   * Load data by URL of required page.
+   * @param url URL of the required page.
    * @param options Parameters of loading. Now can contains field 'search' for
    *                filtering extensions.
    */
@@ -63,7 +87,11 @@ controller = {
               document.getElementById('post__content').classList.remove('post__content--extended');
             });
             break;
-          case 2: // load concret extension
+          case 2: // load concret extension content
+            Mydataspace.emit('entities.subscribe', {
+              root: controller.ROOT,
+              path: newPath + '/comments/*'
+            });
             Mydataspace.request('entities.get', {
               root: controller.ROOT,
               path: newPath,
@@ -177,6 +205,30 @@ controller = {
     if (typeof data.children !== 'undefined') {
       for (var child of data.children) {
         controller.fillPostChild(child);
+        switch (common.getChildName(child.path)) {
+          case 'comments':
+            $('#post__comments').empty();
+            if (child.numberOfChildren > 0) {
+              document.getElementById('post__no_comments').style.display = 'none';
+              document.getElementById('post__loading_comments').style.display = 'block';
+              Mydataspace.request('entities.get', {
+                root: data.root,
+                path: common.getChildPath(data.path, 'comments'),
+                children: []
+              }, function() {
+                document.getElementById('post__loading_comments').style.display = 'none';
+              }, function() {
+                document.getElementById('post__loading_comments').style.display = 'none';
+                document.getElementById('post__no_comments').style.display = 'block';
+              });
+            } else {
+              document.getElementById('post__no_comments').style.display = 'block';
+              document.getElementById('post__loading_comments').style.display = 'none';
+            }
+            break;
+          default:
+            break;
+        }
       }
     }
   },
@@ -271,7 +323,48 @@ controller = {
     return row;
   },
 
-  fillComments: function(data) {
-    ;
+  getCommentHTML: function(comment) {
+    return '<div class="comment info_block">' +
+    '<div class="comment__header">' + comment.createdAt + '</div>' +
+    '<div class="comment__content">' + common.findByName(comment.fields, 'text').value + '</div>' +
+    '</div>';
   },
+
+  fillComments: function(comments) {
+    if (comments.length == 0) {
+      $('#post__no_comments').show();
+    } else {
+      $('#post__no_comments').hide();
+      $.each(comments, function(i, comment) {
+        $('#post__comments').append(controller.getCommentHTML(comment));
+      });
+    }
+  },
+
+  guid: function() {
+    function s4() {
+      return Math.floor((1 + Math.random()) * 0x10000)
+        .toString(16)
+        .substring(1);
+    }
+    return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+      s4() + '-' + s4() + s4() + s4();
+  },
+
+  postComment: function($textarea) {
+    Mydataspace.request('entities.create', {
+      root: controller.ROOT,
+      path: common.getChildPath(controller.getCurrentPath(), 'comments/' + controller.guid()),
+      fields: [
+        {
+          name: 'text',
+          value: $textarea.val()
+        }
+      ]
+    }, function() {
+      $textarea.val('');
+    }, function() {
+
+    });
+  }
 }

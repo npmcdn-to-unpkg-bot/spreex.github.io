@@ -1,0 +1,54 @@
+.comment {
+
+}
+
+.comment__header {
+  font-weight: bold;
+}
+
+.comment__content {
+
+}
+
+.new_comment {
+  padding-top: 10px;
+}
+
+.post__loading_comments {
+  display: none;
+  text-align: center;
+}
+
+.new_comment__button {
+  padding-left: 20px;
+  padding-right: 20px;
+  display: none;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  width: 100%;
+  border: 0;
+  border-left: 2px solid black;
+}
+
+.new_comment__textarea_wrap {
+  margin-bottom: 0 !important;
+}
+
+.new_comment__textarea {
+  padding: 12px 20px !important;
+  overflow: hidden !important;
+  margin-bottom: 0 !important;
+  resize: none;
+  border-radius: 10px;
+  border: 0;
+  border-left: 2px solid black;
+}
+
+.new_comment__textarea--extended {
+  height: auto;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom: 0;
+}
