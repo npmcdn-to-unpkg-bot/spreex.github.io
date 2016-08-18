@@ -9,3 +9,11 @@
 .summery_block__item_value {
   margin-left: $block-hpadding / 3;
 }
+
+.post__n_likes_wrap {
+  cursor: pointer;
+}
+
+.post__n_likes_wrap--liked {
+  color: red;
+}

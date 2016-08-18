@@ -2,8 +2,18 @@
   <div class="summery_block__item">
     <i class="fa fa-comments" aria-hidden="true"></i><span class="summery_block__item_value post__n_comments">-</span>
   </div>
-  <div class="summery_block__item">
-    <i class="fa fa-heart" aria-hidden="true"></i><span class="summery_block__item_value post__n_likes">-</span>
+  <div class="summery_block__item post__n_likes_wrap">
+    <i class="fa fa-heart" aria-hidden="true"></i>
+    <span class="summery_block__item_value post__n_likes">-</span>
+    <script type="text/javascript">
+      $('.summery_block .post__n_likes_wrap').on('click', function() {
+        if (Mydataspace.isLoggedIn()) {
+          controller.swithLike();
+        } else {
+          $('.signin_modal').modal('show');
+        }
+      });
+    </script>
   </div>
   {% if include.include_github %}
   <div class="summery_block__item">

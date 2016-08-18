@@ -20,6 +20,7 @@ controller = {
       connected: function() {
         Mydataspace.on('entities.get.res', controller.handle);
         Mydataspace.on('entities.create.res', controller.onCreated);
+        Mydataspace.on('entities.delete.res', controller.onDeleted);
         Mydataspace.on('login', function() {
           document.getElementById('main_menu__signout_item').classList.remove('hidden');
           document.getElementById('main_menu__signin_item').classList.add('hidden');
@@ -32,6 +33,35 @@ controller = {
       }
     });
     Mydataspace.connect();
+  },
+  onDeleted: function(data) {
+    var pathParts = UIHelper.parsePath(data.path);
+    if (pathParts[0] !== 'extensions') {
+      return;
+    }
+    switch (pathParts.length) {
+      case 2: // new extension created
+        break;
+      case 4:
+        switch (pathParts[2]) {
+          case 'comments':
+            // $('#post__comments').prepend(
+            //   controller.getCommentHTML(data));
+            var n = parseInt($('.post__n_comments').get(0).innerText);
+            $('.post__n_comments').text(n - 1);
+            break;
+          case 'likes':
+            var n = parseInt($('.post__n_likes').get(0).innerText);
+            $('.post__n_likes').text(n - 1);
+            if (data.path === $('.post__n_likes_wrap').data('like-path')) {
+              $('.post__n_likes_wrap').removeClass('post__n_likes_wrap--liked');
+              $('.post__n_likes_wrap').data('like-path', null);
+            }
+          default:
+        }
+        break;
+      default:
+    }
   },
 
   onCreated: function(data) {
@@ -50,6 +80,13 @@ controller = {
             var n = parseInt($('.post__n_comments').get(0).innerText);
             $('.post__n_comments').text(n + 1);
             break;
+          case 'likes':
+            var n = parseInt($('.post__n_likes').get(0).innerText);
+            $('.post__n_likes').text(n + 1);
+            if (data.mine) {
+              $('.post__n_likes_wrap').addClass('post__n_likes_wrap--liked');
+              $('.post__n_likes_wrap').data('like-path', data.path);
+            }
           default:
         }
         break;
@@ -69,7 +106,7 @@ controller = {
     }
     var newPath = UIHelper.getPathByURL(url);
     var newPathParts = UIHelper.parsePath(newPath);
-    var search = typeof options.search !== 'undefined' ? options.search : common.getURLParamByName(url);
+    var search = options.search || document.getElementById('post_search__input').value;
     switch (newPathParts[0]) {
       case '#':
         return;
@@ -88,14 +125,29 @@ controller = {
             });
             break;
           case 2: // load concret extension content
+            controller.resetPost();
             Mydataspace.emit('entities.subscribe', {
               root: controller.ROOT,
               path: newPath + '/comments/*'
             });
+            Mydataspace.emit('entities.subscribe', {
+              root: controller.ROOT,
+              path: newPath + '/likes/*'
+            });
+            Mydataspace.request('entities.getMyChildren', {
+              root: controller.ROOT,
+              path: newPath + '/likes'
+            }, function(data) {
+              if (data.children.length > 0) {
+                var like = data.children[0];
+                $('.post__n_likes_wrap').data('like-path', like.path);
+                $('.post__n_likes_wrap').addClass('post__n_likes_wrap--liked');
+              }
+            });
             Mydataspace.request('entities.get', {
               root: controller.ROOT,
               path: newPath,
-              search: search,
+              // search: search,
               children: []
             }, function() {
               document.getElementById('search').classList.add('hidden');
@@ -178,6 +230,16 @@ controller = {
 
   getCurrentPath: function() {
     return UIHelper.getPathByURL(controller.getCurrentURL());
+  },
+
+  resetPost: function() {
+    $('#post__comments').empty();
+    $('#post__new_comment .new_comment__textarea').removeClass('new_comment__textarea--extended');
+    $('#post__new_comment .new_comment__button').hide();
+    $('.summery_block .post__n_likes_wrap').removeClass('post__n_likes_wrap--liked');
+    $('.summery_block .post__n_likes_wrap').data('like-path', null);
+    // $('.post__n_likes').text('0');
+    // $('.post__n_comments').text('0');
   },
 
   fillPost: function(data, parentElement) {
@@ -367,5 +429,20 @@ controller = {
     }, function() {
 
     });
+  },
+
+  swithLike: function() {
+    var $elem = $('.summery_block .post__n_likes_wrap');
+    if ($elem.data('like-path') == null) {
+      Mydataspace.emit('entities.create', {
+        root: controller.ROOT,
+        path: common.getChildPath(controller.getCurrentPath(), 'likes/' + controller.guid())
+      });
+    } else {
+      Mydataspace.emit('entities.delete', {
+        root: controller.ROOT,
+        path: $elem.data('like-path')
+      });
+    }
   }
 }
