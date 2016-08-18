@@ -42,6 +42,9 @@
     }
 
     for (var link of document.getElementsByTagName('a')) {
+      if (link.href.startsWith('javascript:')) {
+        continue;
+      }
       link.addEventListener('click', function(event) {
         if (/^\w+\:\/\//.test(this.href) && this.href.indexOf('{{ site.url }}') !== 0 && this.href.indexOf('http://localhost') !== 0) {
           return;

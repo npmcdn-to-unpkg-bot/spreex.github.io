@@ -25,10 +25,12 @@ controller = {
           document.getElementById('main_menu__signout_item').classList.remove('hidden');
           document.getElementById('main_menu__signin_item').classList.add('hidden');
           $('#signin_modal').modal('hide');
+          controller.reload(true);
         });
         Mydataspace.on('logout', function() {
           document.getElementById('main_menu__signin_item').classList.remove('hidden');
           document.getElementById('main_menu__signout_item').classList.add('hidden');
+          controller.reload();
         });
       }
     });
@@ -45,17 +47,21 @@ controller = {
       case 4:
         switch (pathParts[2]) {
           case 'comments':
-            // $('#post__comments').prepend(
-            //   controller.getCommentHTML(data));
+            $('#post__comments').find('.comment').each(function() {
+              if ($(this).data('entity-path') === data.path) {
+                $(this).remove();
+                return false;
+              }
+            });
             var n = parseInt($('.post__n_comments').get(0).innerText);
             $('.post__n_comments').text(n - 1);
             break;
           case 'likes':
             var n = parseInt($('.post__n_likes').get(0).innerText);
             $('.post__n_likes').text(n - 1);
-            if (data.path === $('.post__n_likes_wrap').data('like-path')) {
+            if (data.path === $('.post__n_likes_wrap').data('entity-path')) {
               $('.post__n_likes_wrap').removeClass('post__n_likes_wrap--liked');
-              $('.post__n_likes_wrap').data('like-path', null);
+              $('.post__n_likes_wrap').data('entity-path', null);
             }
           default:
         }
@@ -85,7 +91,7 @@ controller = {
             $('.post__n_likes').text(n + 1);
             if (data.mine) {
               $('.post__n_likes_wrap').addClass('post__n_likes_wrap--liked');
-              $('.post__n_likes_wrap').data('like-path', data.path);
+              $('.post__n_likes_wrap').data('entity-path', data.path);
             }
           default:
         }
@@ -125,7 +131,7 @@ controller = {
             });
             break;
           case 2: // load concret extension content
-            controller.resetPost();
+            controller.resetPost(options.letAloneNewComment);
             Mydataspace.emit('entities.subscribe', {
               root: controller.ROOT,
               path: newPath + '/comments/*'
@@ -140,7 +146,7 @@ controller = {
             }, function(data) {
               if (data.children.length > 0) {
                 var like = data.children[0];
-                $('.post__n_likes_wrap').data('like-path', like.path);
+                $('.post__n_likes_wrap').data('entity-path', like.path);
                 $('.post__n_likes_wrap').addClass('post__n_likes_wrap--liked');
               }
             });
@@ -191,21 +197,21 @@ controller = {
           // List of posts
           case 1:
             if (controller.getCurrentPath() !== data.path) {
-              throw new Error('Illegal path');
+              throw new Error('Illegal path: ' + data.path + '. Expected: ' + controller.getCurrentPath());
             }
             controller.updatePostList(data.children);
             break;
           // Post details
           case 2:
             if (controller.getCurrentPath() !== data.path) {
-              throw new Error('Illegal path');
+              throw new Error('Illegal path: ' + data.path + '. Expected: ' + controller.getCurrentPath());
             }
             controller.fillPost(data, document.getElementById('post'));
             break;
           // Post child's details (for example: comments, rubygems, github)
           case 3:
             if (controller.getCurrentPath() + '/' + pathParts[2] !== data.path) {
-              throw new Error('Illegal path');
+              throw new Error('Illegal path: ' + data.path + '. Expected: ' + controller.getCurrentPath() + '/' + pathParts[2]);
             }
             switch (pathParts[2]) {
               case 'comments':
@@ -216,15 +222,15 @@ controller = {
                 controller.fillChildPost(pathParts[2], data.fields);
                 break;
               default:
-                throw new Error('Illegal path');
+                throw new Error('Illegal path: ' + data.path + '. Expected comments, rubygems or github.');
             }
             break;
           default:
-            throw new Error('Illegal path');
+            throw new Error('Illegal path: ' + data.path + '. Path contains more then 3 names');
         }
         break;
       default:
-        throw new Error('Illegal path');
+        throw new Error('Illegal path: ' + data.path + '. Path must starts with `extensions`');
     }
   },
 
@@ -232,14 +238,18 @@ controller = {
     return UIHelper.getPathByURL(controller.getCurrentURL());
   },
 
-  resetPost: function() {
-    $('#post__comments').empty();
-    $('#post__new_comment .new_comment__textarea').removeClass('new_comment__textarea--extended');
-    $('#post__new_comment .new_comment__button').hide();
+  resetPost: function(letAloneNewComment) {
+    if (letAloneNewComment !== true) {
+      $('#post__new_comment .new_comment__textarea').val('');
+      $('#post__new_comment .new_comment__textarea').removeClass('new_comment__textarea--extended');
+      $('#post__new_comment .new_comment__button').hide();
+    }
     $('.summery_block .post__n_likes_wrap').removeClass('post__n_likes_wrap--liked');
-    $('.summery_block .post__n_likes_wrap').data('like-path', null);
-    // $('.post__n_likes').text('0');
-    // $('.post__n_comments').text('0');
+    $('.summery_block .post__n_likes_wrap').data('entity-path', null);
+  },
+
+  reload: function(letAloneNewComment) {
+    controller.load(controller.getCurrentURL(), { letAloneNewComment: letAloneNewComment });
   },
 
   fillPost: function(data, parentElement) {
@@ -387,8 +397,10 @@ controller = {
     if (comment.mine) {
       additionalClasses = 'comment--mine';
     }
-    return '<div class="comment info_block ' + additionalClasses + '">' +
+    return '<div data-entity-path="' + comment.path + '" class="comment info_block ' + additionalClasses + '">' +
     '<div class="comment__header">' + comment.createdAt + '</div>' +
+    '<div onclick="controller.deleteComment($(this).parent().data(\'entity-path\'))" ' +
+         'class="comment__delete"><i class="fa fa-2x fa-times" aria-hidden="true"></i></div>' +
     '<div class="comment__content">' + common.findByName(comment.fields, 'text').value + '</div>' +
     '</div>';
   },
@@ -431,9 +443,16 @@ controller = {
     });
   },
 
+  deleteComment: function(path) {
+    Mydataspace.emit('entities.delete', {
+      root: controller.ROOT,
+      path: path
+    });
+  },
+
   swithLike: function() {
     var $elem = $('.summery_block .post__n_likes_wrap');
-    if ($elem.data('like-path') == null) {
+    if ($elem.data('entity-path') == null) {
       Mydataspace.emit('entities.create', {
         root: controller.ROOT,
         path: common.getChildPath(controller.getCurrentPath(), 'likes/' + controller.guid())
@@ -441,7 +460,7 @@ controller = {
     } else {
       Mydataspace.emit('entities.delete', {
         root: controller.ROOT,
-        path: $elem.data('like-path')
+        path: $elem.data('entity-path')
       });
     }
   }

@@ -9,6 +9,9 @@
   a {
     display: block;
     padding: $block-vpadding $block-hpadding;
+    &:hover {
+      text-decoration: underline;
+    }
   }
   float: left;
 }

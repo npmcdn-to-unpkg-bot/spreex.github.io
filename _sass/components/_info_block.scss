@@ -1,7 +1,9 @@
 .info_block {
   @extend .block;
   @extend .block--side;
-
+  a:hover {
+    text-decoration: underline;
+  }
 }
 
 .info_block__title {

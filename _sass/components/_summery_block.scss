@@ -17,3 +17,14 @@
 .post__n_likes_wrap--liked {
   color: red;
 }
+
+.post__n_likes_wrap {
+  & > i {
+    transform: scale(1);
+    transition: 0.2s;
+  }
+  &:hover > i {
+    transform: scale(1.2);
+    transition: 0.2s;
+  }
+}

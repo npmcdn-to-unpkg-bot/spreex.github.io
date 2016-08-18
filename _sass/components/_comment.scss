@@ -1,9 +1,33 @@
 .comment {
+  position: relative;
+  &:hover {
+    .comment__delete {
+      opacity: 0.5;
+      transition: opacity 0.3s;
+    }
+  }
+}
 
+.comment__delete {
+  opacity: 0;
+  transition: opacity 0.3s;
+  display: none;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 10px 20px;
+  &:hover {
+    opacity: 1 !important;
+    transition: opacity 0.3s;
+  }
 }
 
 .comment--mine {
   background: $gradient-hover;
+  .comment__delete {
+    display: block;
+  }
 }
 
 .comment__header {
