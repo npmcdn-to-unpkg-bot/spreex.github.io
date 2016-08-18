@@ -46,8 +46,12 @@
               }, 0);
             });
             $('#post__new_comment .new_comment__button').on('click', function() {
-              controller.postComment(
-                $('#post__new_comment .new_comment__textarea'));
+              if (Mydataspace.isLoggedIn()) {
+                controller.postComment(
+                  $('#post__new_comment .new_comment__textarea'));
+              } else {
+                $('.signin_modal').modal('show');
+              }
             });
           </script>
         </div>
