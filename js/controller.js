@@ -209,7 +209,6 @@ controller = {
           case 'comments':
             $('#post__comments').empty();
             if (child.numberOfChildren > 0) {
-              document.getElementById('post__no_comments').style.display = 'none';
               document.getElementById('post__loading_comments').style.display = 'block';
               Mydataspace.request('entities.get', {
                 root: data.root,
@@ -219,10 +218,8 @@ controller = {
                 document.getElementById('post__loading_comments').style.display = 'none';
               }, function() {
                 document.getElementById('post__loading_comments').style.display = 'none';
-                document.getElementById('post__no_comments').style.display = 'block';
               });
             } else {
-              document.getElementById('post__no_comments').style.display = 'block';
               document.getElementById('post__loading_comments').style.display = 'none';
             }
             break;
@@ -324,7 +321,11 @@ controller = {
   },
 
   getCommentHTML: function(comment) {
-    return '<div class="comment info_block">' +
+    var additionalClasses = '';
+    if (comment.mine) {
+      additionalClasses = 'comment--mine';
+    }
+    return '<div class="comment info_block ' + additionalClasses + '">' +
     '<div class="comment__header">' + comment.createdAt + '</div>' +
     '<div class="comment__content">' + common.findByName(comment.fields, 'text').value + '</div>' +
     '</div>';
