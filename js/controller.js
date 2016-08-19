@@ -114,9 +114,8 @@ controller = {
     var newPathParts = UIHelper.parsePath(newPath);
     var search =
       options.search ||
-      document.getElementById('post_search__input').value ||
       common.getURLParamByName('search', url);
-      
+
     switch (newPathParts[0]) {
       case '#':
         return;
@@ -126,6 +125,7 @@ controller = {
             document.getElementById('post').classList.add('hidden');
             document.getElementById('search').classList.remove('hidden');
             document.getElementById('post__content').classList.remove('post__content--extended');
+            document.getElementById('post_search__input').value = search;
             Mydataspace.request('entities.get', {
               root: controller.ROOT,
               path: 'extensions',
