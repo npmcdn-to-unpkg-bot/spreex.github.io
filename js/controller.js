@@ -266,7 +266,8 @@ controller = {
     if (typeof parentElement === 'undefined') {
       parentElement = document;
     }
-    for (var field of data.fields) {
+    for (var fieldIndex in data.fields) {
+      var field = data.fields[fieldIndex];
       var elems = parentElement.getElementsByClassName('post__' + field.name);
       if (/URL$/.test(field.name) || field.name === 'url') {
         if (field.name === 'readmeURL') {
@@ -285,7 +286,8 @@ controller = {
       }
     }
     if (typeof data.children !== 'undefined') {
-      for (var child of data.children) {
+      for (var childIndex in data.children) {
+        var child = data.children[childIndex];
         controller.fillPostChild(child);
         switch (common.getChildName(child.path)) {
           case 'comments':
@@ -317,7 +319,8 @@ controller = {
       parentElement = document;
     }
     var childPrefix = 'post__' + common.getChildName(childData.path) + '_';
-    for (var childField of childData.fields) {
+    for (var childFieldIndex in childData.fields) {
+      var childField = childData.fields[childFieldIndex];
       if (common.isBlank(childField.value)) {
         continue;
       }
@@ -346,7 +349,8 @@ controller = {
       postList.innerHTML = '';
     }
     var currentRow = postList.firstChild;
-    for (var postData of rowsData) {
+    for (var postDataIndex in rowsData) {
+      var postData = rowsData[postDataIndex];
       var postName = common.getChildName(postData.path);
       if (currentRow == null) {
         postList.appendChild(controller.createPostRow(postData));

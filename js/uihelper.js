@@ -36,23 +36,24 @@ UIHelper = {
   },
 
   setElemementsText: function(elems, text) {
-    for (var el of elems) {
-      el.innerText = text;
+    for (var i = 0; i < elems.length; i++) {
+      elems[i].innerText = text;
     }
   },
 
   setElemementsSRC: function(elems, url) {
-    for (var el of elems) {
+    for (var i = 0; i < elems.length; i++) {
       if (common.isBlank(url)) {
-        el.href = 'img/no-image.png';
+        elems[i].href = 'img/no-image.png';
       } else {
-        el.src = url;
+        elems[i].src = url;
       }
     }
   },
 
   setElemementsURL: function(elems, url) {
-    for (var el of elems) {
+    for (var i = 0; i < elems.length; i++) {
+      var el = elems[i];
       if (common.isBlank(url)) {
         el.classList.add('disabled');
         el.href = 'javascript:void(0)';

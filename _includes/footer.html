@@ -35,25 +35,29 @@
       Mydataspace.logout();
     });
 
-    for (var authBtn of document.getElementsByClassName('signin_modal__auth_button')) {
-      authBtn.addEventListener('click', function(event) {
-        Mydataspace.login(this.getAttribute('data-authprovider'));
-      });
-    }
+    $('.signin_modal__auth_button').on('click', function() {
+      Mydataspace.login($(this).data('authprovider'));
+    });
 
-    for (var link of document.getElementsByTagName('a')) {
-      if (link.href.startsWith('javascript:')) {
-        continue;
+    $('a').each(function() {
+      if (this.href.startsWith('javascript:')) {
+        return;
       }
-      link.addEventListener('click', function(event) {
-        if (/^\w+\:\/\//.test(this.href) && this.href.indexOf('{{ site.url }}') !== 0 && this.href.indexOf('http://localhost') !== 0) {
+
+      $(this).on('click', function(event) {
+        if (/^\w+\:\/\//.test(this.href) &&
+            this.href.indexOf('{{ site.url }}') !== 0 &&
+            this.href.indexOf('http://localhost') !== 0) {
           return;
         }
+        alert('aaa');
         event.preventDefault();
         controller.load(this.href, true);
         return false;
       });
-    }
+
+    });
+
     controller.load(window.location.href, false);
   </script>
 </footer>
