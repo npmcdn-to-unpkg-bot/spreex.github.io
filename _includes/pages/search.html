@@ -6,14 +6,14 @@
     document.getElementById('post_search__input').value =
       common.getURLParamByName('search', window.location.href);
     document.getElementById('post_search__input').addEventListener('change', function() {
-      controller.load(controller.getCurrentURL(), false, {
-        search: document.getElementById('post_search__input').value
-      });
+      var search = document.getElementById('post_search__input').value;
+      var url = UIHelper.addOrReplaceURLParam(controller.getCurrentURL(), 'search', search);
+      controller.load(url, 'replaceState', { search: search });
     });
     document.getElementById('post_search__input').addEventListener('keyup', function() {
-      controller.load(controller.getCurrentURL(), false, {
-        search: document.getElementById('post_search__input').value
-      });
+      var search = document.getElementById('post_search__input').value;
+      var url = UIHelper.addOrReplaceURLParam(controller.getCurrentURL(), 'search', search);
+      controller.load(url, 'replaceState', { search: search });
     });
   </script>
 </div>

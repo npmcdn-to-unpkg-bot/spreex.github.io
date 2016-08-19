@@ -1,4 +1,40 @@
 UIHelper = {
+  addOrReplaceURLParam: function(url, paramName, paramValue) {
+    var urlParts = url.split('?');
+    var query = urlParts[1] || '';
+    var queryParts;
+    if (query === '') {
+      queryParts = [];
+    } else {
+      queryParts = query.split('&');
+    }
+
+    var found = false;
+    for (var i in queryParts) {
+      var part = queryParts[i];
+      if (part.startsWith(paramName + '=')) {
+        if (common.isPresent(paramValue)) {
+          queryParts[i] = paramName + '=' + paramValue;
+        } else {
+          queryParts.splice(i, 1);
+        }
+        found = true;
+        break;
+      }
+    }
+
+    if (!found && common.isPresent(paramValue)) {
+      queryParts.push(paramName + '=' + paramValue);
+    }
+
+    if (queryParts.length === 0) {
+      return urlParts[0];
+    }
+
+    var resultQuery = queryParts.join('&');
+    return urlParts[0] + '?' + resultQuery;
+  },
+
   setElemementsText: function(elems, text) {
     for (var el of elems) {
       el.innerText = text;
@@ -28,7 +64,8 @@ UIHelper = {
   },
 
   getPathByURL: function(url) {
-    var m = url.match(/^[^:]*:\/\/[^\?\/]*(\/[^\?]+)?/);
+    var parts = url.split('?');
+    var m = parts[0].match(/^[^:]*:\/\/[^\?\/]*(\/[^\?]+)?/);
     if (m == null) {
       throw new Error('Illegal URL format:' + url);
     }

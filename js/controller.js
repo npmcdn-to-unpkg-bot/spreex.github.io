@@ -8,14 +8,7 @@ controller = {
 
   init: function(apiURL, websocketURL, clientId) {
     window.onpopstate = function(event) {
-      console.log('popstate');
-      console.log(window.location.href);
-      console.log(event);
       controller.load(window.location.href, false);
-
-      // if (event.state != null && event.state.test === 'test') {
-      //   controller.load(window.location.href, false);
-      // }
     };
     // Mydataspace.registerFormatter('entities.get', new EntityUnsimplifier());
     // Mydataspace.registerFormatter('entities.get.res', new EntitySimplifier());
@@ -119,7 +112,11 @@ controller = {
     }
     var newPath = UIHelper.getPathByURL(url);
     var newPathParts = UIHelper.parsePath(newPath);
-    var search = options.search || document.getElementById('post_search__input').value;
+    var search =
+      options.search ||
+      document.getElementById('post_search__input').value ||
+      common.getURLParamByName('search', url);
+      
     switch (newPathParts[0]) {
       case '#':
         return;
@@ -190,13 +187,11 @@ controller = {
         throw new Error('Illegal URL: ' + url);
     }
 
-    if (pushState === true) {
-      var stateObj = { test: 'test' };
-      history.pushState(stateObj, '', url);
-      console.log('pushState');
-      console.log(url);
+    if (pushState === true || pushState === 'pushState') {
+      history.pushState({}, '', url);
+    } else if (pushState === 'replaceState') {
+      history.replaceState({}, '', url);
     }
-
   },
 
   /**
