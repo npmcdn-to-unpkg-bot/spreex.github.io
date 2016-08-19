@@ -51,6 +51,12 @@ UIHelper = {
     }
   },
 
+  setElemementsTitle: function(elems, str) {
+    for (var i = 0; i < elems.length; i++) {
+      elems[i].setAttribute('title', str);
+    }
+  },
+
   setElemementsURL: function(elems, url) {
     for (var i = 0; i < elems.length; i++) {
       var el = elems[i];
@@ -59,7 +65,8 @@ UIHelper = {
         el.href = 'javascript:void(0)';
       } else {
         el.classList.remove('disabled');
-        el.href = url;
+        var suffix = el.getAttribute('data-url-suffix');
+        el.href = url + (suffix || '');
       }
     }
   },

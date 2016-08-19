@@ -8,13 +8,19 @@
   <div class="info_block__summery">
     <div class="info_block__summery_values clearfix">
       <div class="info_block__summery_value_wrap">
-        <i class="fa fa-eye" aria-hidden="true"></i><span class="info_block__summery_value post__github_watchers">-</span>
+        <a href="" class="post__github_url" data-url-suffix="/watchers" target="_blank">
+          <i class="fa fa-eye" aria-hidden="true"></i><span class="info_block__summery_value post__github_watchers">-</span>
+        </a>
       </div>
       <div class="info_block__summery_value_wrap">
-        <i class="fa fa-star" aria-hidden="true"></i><span class="info_block__summery_value post__github_stars">-</span>
+        <a href="" class="post__github_url" data-url-suffix="/stargazers" target="_blank">
+          <i class="fa fa-star" aria-hidden="true"></i><span class="info_block__summery_value post__github_stars">-</span>
+        </a>
       </div>
       <div class="info_block__summery_value_wrap">
-        <i class="fa fa-code-fork" aria-hidden="true"></i><span class="info_block__summery_value post__github_forks">-</span>
+        <a href="" class="post__github_url" data-url-suffix="/network" target="_blank">
+          <i class="fa fa-code-fork" aria-hidden="true"></i><span class="info_block__summery_value post__github_forks">-</span>
+        </a>
       </div>
     </div>
   </div>
@@ -22,21 +28,34 @@
   <dl class="dl-horizontal marks_block">
     <dt class="marks_block__item_title">Owner</dt>
     <dd class="marks_block__item_value">
-      <img class="post__github_ownerIMG" src="" />
-      <a class="post__github_ownerURL post__github_ownerLogin"
+
+      <a class="post__github_ownerURL"
          href=""
-         target="_blank"></a>
+         target="_blank">
+        <img class="post__github_ownerIMG" src="" />
+        <span class="post__github_ownerLogin"></span>
+      </a>
     </dd>
     <dt class="marks_block__item_title">Issues</dt>
-    <dd class="marks_block__item_value post__github_issues">-</dd>
+    <dd class="marks_block__item_value">
+      <a class="post__github_url post__github_issues"
+         href=""
+         data-url-suffix="/issues?q=is%3Aopen%20"
+         target="_blank">-</a>
+    </dd>
     <dt class="marks_block__item_title">Last commit</dt>
     <dd class="marks_block__item_value">
-      <span class="post__github_lastCommitDate"></span> by
+      <span data-placement="bottom"
+            title=""
+            class="post__github_lastCommitDate post__github_lastCommitMessage">
+      </span> by
       <span class="post__github_lastCommitAuthor">
-        <img class="post__github_lastCommitAuthorIMG" src="" />
-        <a class="post__github_lastCommitAuthorURL post__github_lastCommitAuthorLogin"
+        <a class="post__github_lastCommitAuthorURL"
            href=""
-           target="_blank"></a>
+           target="_blank">
+          <img class="post__github_lastCommitAuthorIMG" src="" />
+          <span class="post__github_lastCommitAuthorLogin"></span>
+        </a>
       </span>
     </dd>
     <!-- <dt class="marks_block__item_title">Commits</dt>

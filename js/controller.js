@@ -115,6 +115,8 @@ controller = {
     var search =
       options.search ||
       common.getURLParamByName('search', url);
+    search = search != null ? decodeURIComponent(search) : null;
+    search = search === '' ? null : search;
 
     switch (newPathParts[0]) {
       case '#':
@@ -126,7 +128,13 @@ controller = {
             document.getElementById('post').classList.add('hidden');
             document.getElementById('search').classList.remove('hidden');
             document.getElementById('post__content').classList.remove('post__content--extended');
-            document.getElementById('post_search__input').value = search;
+
+            if (options.notFillSearchInput !== true) {
+              if (document.getElementById('post_search__input').value != search) {
+                document.getElementById('post_search__input').value = search;
+              }
+            }
+
             Mydataspace.request('entities.get', {
               root: controller.ROOT,
               path: 'extensions',
@@ -228,6 +236,8 @@ controller = {
                 controller.fillComments(data.children);
                 break;
               case 'rubygems':
+                controller.fillChildPost(pathParts[2], data.fields);
+                break;
               case 'github':
                 controller.fillChildPost(pathParts[2], data.fields);
                 break;
@@ -331,6 +341,10 @@ controller = {
         UIHelper.setElemementsText(elems, new Date(childField.value).toLocaleDateString());
       } else if (/IMG$/.test(childField.name) || childField.name === 'img') {
         UIHelper.setElemementsSRC(elems, childField.value);
+      } else if (/Message$/.test(childField.name)) {
+        // UIHelper.setElemementsTitle(elems, childField.value);
+        $(elems).attr('data-original-title', childField.value)
+                .tooltip('fixTitle');
       } else {
         UIHelper.setElemementsText(elems, childField.value);
       }
@@ -338,6 +352,7 @@ controller = {
     var nElems =
       document.getElementsByClassName('post__n_' + common.getChildName(childData.path));
     UIHelper.setElemementsText(nElems, childData.numberOfChildren);
+
   },
 
   updatePostList: function(rowsData) {

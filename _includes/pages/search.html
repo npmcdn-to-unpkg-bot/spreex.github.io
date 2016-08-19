@@ -9,14 +9,20 @@
     document.getElementById('post_search__input').value =
       common.getURLParamByName('search', window.location.href);
     document.getElementById('post_search__input').addEventListener('change', function() {
-      var search = document.getElementById('post_search__input').value;
+      var search = encodeURIComponent(document.getElementById('post_search__input').value);
       var url = UIHelper.addOrReplaceURLParam(controller.getCurrentURL(), 'search', search);
-      controller.load(url, 'replaceState', { search: search });
+      controller.load(url, 'replaceState', {
+        search: search,
+        notFillSearchInput: true
+      });
     });
     document.getElementById('post_search__input').addEventListener('keyup', function() {
-      var search = document.getElementById('post_search__input').value;
+      var search = encodeURIComponent(document.getElementById('post_search__input').value);
       var url = UIHelper.addOrReplaceURLParam(controller.getCurrentURL(), 'search', search);
-      controller.load(url, 'replaceState', { search: search });
+      controller.load(url, 'replaceState', {
+        search: search,
+        notFillSearchInput: true
+      });
     });
   </script>
 </div>
