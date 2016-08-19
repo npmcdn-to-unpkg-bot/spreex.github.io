@@ -382,18 +382,29 @@ controller = {
   createPostRow: function(postData) {
     var postName = common.getChildName(postData.path);
     var row = document.createElement('div');
-    row.setAttribute('class', 'post--row');
+    row.setAttribute('class', 'post post--row');
     row.setAttribute('data-postName', postName);
     row.setAttribute('data-createdAt', postData.createdAt);
     var html =
-      '<a class="clearfix" href="/' + postData.path + '" onclick="event.preventDefault(); return controller.load(this.href, true);">\n' +
-      '  <div class="pull-left">\n' +
+      '<a class="clearfix relative" href="/' + postData.path + '" onclick="event.preventDefault(); return controller.load(this.href, true);">\n' +
+      '  <div>\n' +
       '    <div class="post__title--row">\n' +
       '      ' + common.findByName(postData.fields, 'title').value + '\n' +
       '    </div>\n' +
       '    <div class="post__description--row post__description">\n' +
       '      ' + common.findByName(postData.fields, 'description').value + '\n' +
       '    </div>\n' +
+      '  </div>\n' +
+      '  <div class="post__github_short_info">\n' +
+      '    <div class="summery_block__item">\n' +
+      '      <i class="fa fa-code-fork" aria-hidden="true"></i><span class="summery_block__item_value">' + common.findByName(postData.fields, 'githubForks').value + '</span>\n' +
+      '    </div>\n' +
+      '    <div class="summery_block__item">\n' +
+      '      <i class="fa fa-star" aria-hidden="true"></i><span class="summery_block__item_value">' + common.findByName(postData.fields, 'githubStars').value + '</span>\n' +
+      '    </div>\n' +
+      // '    <div class="summery_block__item">\n' +
+      // '      <i class="fa fa-eye" aria-hidden="true"></i><span class="summery_block__item_value post__github_watchers">' + common.findByName(postData.fields, 'githubWatchers').value + '</span>\n' +
+      // '    </div>\n' +
       '  </div>\n' +
       '</a>';
     row.innerHTML = html;

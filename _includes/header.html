@@ -1,29 +1,23 @@
 <header class="site__header">
   <nav class="navbar navbar-inverse">
-    <div class="container">
+    <div class="container relative">
       <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="/">Spreex</a>
+        <a class="navbar-brand" href="/">
+          <img class="logo_img" src="/images/logo.png" />
+          <div class="logo_text">Spreex</div>
+        </a>
+        <!-- <div class="slogan">Catalogue of Spree Commerce extensions</div> -->
       </div>
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        {% if page.name != 'index.html' %}
-        <!-- <form class="navbar-form navbar-left" role="search">
-          <div class="form-group">
-            <input type="text" class="form-control" placeholder="Search">
-          </div>
-          <button type="submit" class="btn btn-default">Submit</button>
-        </form> -->
-        {% endif %}
-        <ul class="nav navbar-nav navbar-right">
-          <!-- <li><a href="/">Extensions</a></li> -->
-          <li><a href="javascript: void(0)" id="main_menu__signin_item" class="last-menu-item" data-toggle="modal" data-target=".signin_modal">Sign in</a></li>
-          <li><a href="javascript: void(0)" id="main_menu__signout_item" class="last-menu-item hidden">Sign out</a></li>
-        </ul>
+
+      <div class="main_menu">
+        <a href="javascript: void(0)"
+           class="main_menu__item"
+           id="main_menu__signin_item"
+           data-toggle="modal"
+           data-target=".signin_modal">Sign in</a>
+        <a href="javascript: void(0)"
+           class="main_menu__item hidden"
+           id="main_menu__signout_item">Sign out</a>
       </div>
     </div>
   </nav>
