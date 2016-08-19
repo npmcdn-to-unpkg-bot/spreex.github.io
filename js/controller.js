@@ -328,7 +328,7 @@ controller = {
       if (/URL$/.test(childField.name) || childField.name === 'url') {
         UIHelper.setElemementsURL(elems, childField.value);
       } else if (/Date$/.test(childField.name) || childField.name === 'date') {
-        UIHelper.setElemementsText(elems, new Date(childField.value).toLocaleString());
+        UIHelper.setElemementsText(elems, new Date(childField.value).toLocaleDateString());
       } else if (/IMG$/.test(childField.name) || childField.name === 'img') {
         UIHelper.setElemementsSRC(elems, childField.value);
       } else {
@@ -425,8 +425,9 @@ controller = {
     if (comment.mine) {
       additionalClasses = 'comment--mine';
     }
+    var createdAt = new Date(comment.createdAt).toLocaleString();
     return '<div data-entity-path="' + comment.path + '" class="comment info_block ' + additionalClasses + '">' +
-    '<div class="comment__header">' + comment.createdAt + '</div>' +
+    '<div class="comment__header">' + createdAt + '</div>' +
     '<div onclick="controller.deleteComment($(this).parent().data(\'entity-path\'))" ' +
          'class="comment__delete"><i class="fa fa-2x fa-times" aria-hidden="true"></i></div>' +
     '<div class="comment__content">' + common.findByName(comment.fields, 'text').value + '</div>' +

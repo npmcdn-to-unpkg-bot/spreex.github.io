@@ -60,7 +60,7 @@
 }
 
 .links_block {
-  margin: $block-vpadding * 4 0;
+  margin-top: $block-vpadding * 3;
 }
 
 .post__content {
@@ -68,6 +68,7 @@
   height: 350px;
   position: relative;
   opacity: 0.5;
+  margin-top: $block-vpadding * 3;
   h1:first-child {
     display: none;
   }

@@ -29,11 +29,22 @@
   margin-left: 5px;
 }
 
+.info_block__summery_values {
+}
+
+.info_block__summery_value_wrap {
+  float: left;
+  margin-right: 30px;
+}
+
 .post__github_ownerIMG, .post__github_lastCommitAuthorIMG {
   width: 30px;
 }
 
 .post__github_lastCommitDate {
   white-space: nowrap;
-  display: block;
+}
+
+.post__github_lastCommitAuthor {
+  white-space: nowrap;
 }
