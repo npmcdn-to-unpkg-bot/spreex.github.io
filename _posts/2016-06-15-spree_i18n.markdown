@@ -4,4 +4,5 @@ date:   2016-06-15 10:51:12 +0500
 permalink: /extensions/spree_i18n
 categories: extensions
 githubRepoName: spree-contrib/spree_i18n
+rubygemsGemName: spree_i18n
 ---
