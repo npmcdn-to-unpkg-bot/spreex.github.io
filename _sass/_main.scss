@@ -20,7 +20,7 @@
   padding: 12px;
   color: white;
   display: block;
-  &:hover {
+  &:hover, &:active, &:focus {
     color: white;
   }
 }
