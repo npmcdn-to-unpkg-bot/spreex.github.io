@@ -173,6 +173,7 @@ controller = {
               document.getElementById('search').classList.add('hidden');
               document.getElementById('post').classList.remove('hidden');
             });
+            // Read post content from site
             $.ajax({
               url: url,
               dataType: 'text'
@@ -184,7 +185,7 @@ controller = {
                 throw new Error('Illegal data');
               }
               var html = data.substring(startIndex, endIndex);
-              if (common.isPresent(html)) {
+              if (html != null && html.trim() != '') {
                 document.getElementById('post__content_346238_4_6283').innerHTML = html;
               }
             });
@@ -264,6 +265,7 @@ controller = {
       $('#post__new_comment .new_comment__textarea').removeClass('new_comment__textarea--extended');
       $('#post__new_comment .new_comment__button').hide();
     }
+    $('#post__content_346238_4_6283').html('<div class="post__content_loading"><i class="fa fa-refresh fa-spin fa-3x fa-fw"></i></div>');
     $('.summery_block .post__n_likes_wrap').removeClass('post__n_likes_wrap--liked');
     $('.summery_block .post__n_likes_wrap').data('entity-path', null);
   },
@@ -281,6 +283,7 @@ controller = {
       var elems = parentElement.getElementsByClassName('post__' + field.name);
       if (/URL$/.test(field.name) || field.name === 'url') {
         if (field.name === 'readmeURL') {
+          // Read post content from GitHub
           $.ajax({
             url: field.value,
             dataType: 'text'
