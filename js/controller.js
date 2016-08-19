@@ -8,7 +8,14 @@ controller = {
 
   init: function(apiURL, websocketURL, clientId) {
     window.onpopstate = function(event) {
-      controller.load(window.location.href);
+      console.log('popstate');
+      console.log(window.location.href);
+      console.log(event);
+      controller.load(window.location.href, false);
+
+      // if (event.state != null && event.state.test === 'test') {
+      //   controller.load(window.location.href, false);
+      // }
     };
     // Mydataspace.registerFormatter('entities.get', new EntityUnsimplifier());
     // Mydataspace.registerFormatter('entities.get.res', new EntitySimplifier());
@@ -106,7 +113,7 @@ controller = {
    * @param options Parameters of loading. Now can contains field 'search' for
    *                filtering extensions.
    */
-  load: function(url, options) {
+  load: function(url, pushState, options) {
     if (typeof options === 'undefined') {
       options = {};
     }
@@ -119,15 +126,15 @@ controller = {
       case 'extensions':
         switch (newPathParts.length) {
           case 1: // laod extension list
+            document.getElementById('post').classList.add('hidden');
+            document.getElementById('search').classList.remove('hidden');
+            document.getElementById('post__content').classList.remove('post__content--extended');
             Mydataspace.request('entities.get', {
               root: controller.ROOT,
               path: 'extensions',
               search: search,
               children: []
             }, function() {
-              document.getElementById('post').classList.add('hidden');
-              document.getElementById('search').classList.remove('hidden');
-              document.getElementById('post__content').classList.remove('post__content--extended');
             });
             break;
           case 2: // load concret extension content
@@ -182,8 +189,14 @@ controller = {
       default:
         throw new Error('Illegal URL: ' + url);
     }
-    var stateObj = {};
-    history.pushState(stateObj, '', url);
+
+    if (pushState === true) {
+      var stateObj = { test: 'test' };
+      history.pushState(stateObj, '', url);
+      console.log('pushState');
+      console.log(url);
+    }
+
   },
 
   /**
@@ -249,7 +262,7 @@ controller = {
   },
 
   reload: function(letAloneNewComment) {
-    controller.load(controller.getCurrentURL(), { letAloneNewComment: letAloneNewComment });
+    controller.load(controller.getCurrentURL(), false, { letAloneNewComment: letAloneNewComment });
   },
 
   fillPost: function(data, parentElement) {
@@ -378,7 +391,7 @@ controller = {
     row.setAttribute('data-postName', postName);
     row.setAttribute('data-createdAt', postData.createdAt);
     var html =
-      '<a class="clearfix" href="/' + postData.path + '" onclick="event.preventDefault(); return controller.load(this.href);">\n' +
+      '<a class="clearfix" href="/' + postData.path + '" onclick="event.preventDefault(); return controller.load(this.href, true);">\n' +
       '  <div class="pull-left">\n' +
       '    <div class="post__title--row">\n' +
       '      ' + common.findByName(postData.fields, 'title').value + '\n' +

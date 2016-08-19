@@ -6,12 +6,12 @@
     document.getElementById('post_search__input').value =
       common.getURLParamByName('search', window.location.href);
     document.getElementById('post_search__input').addEventListener('change', function() {
-      controller.load(controller.getCurrentURL(), {
+      controller.load(controller.getCurrentURL(), false, {
         search: document.getElementById('post_search__input').value
       });
     });
     document.getElementById('post_search__input').addEventListener('keyup', function() {
-      controller.load(controller.getCurrentURL(), {
+      controller.load(controller.getCurrentURL(), false, {
         search: document.getElementById('post_search__input').value
       });
     });

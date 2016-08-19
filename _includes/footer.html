@@ -50,10 +50,10 @@
           return;
         }
         event.preventDefault();
-        controller.load(this.href);
+        controller.load(this.href, true);
         return false;
       });
     }
-    controller.load(window.location.href);
+    controller.load(window.location.href, false);
   </script>
 </footer>

@@ -11,12 +11,8 @@
     border-radius: 10px;
     border-bottom: 2px solid black;
     background: $gradient;
-    transform: scale(1);
-    transition: 0.2s;
     &:hover {
       background: $gradient-hover;
-      transform: scale(1.03);
-      transition: 0.2s;
     }
   }
 }
