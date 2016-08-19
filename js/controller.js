@@ -122,6 +122,7 @@ controller = {
       case 'extensions':
         switch (newPathParts.length) {
           case 1: // laod extension list
+            $('#slogan').show();
             document.getElementById('post').classList.add('hidden');
             document.getElementById('search').classList.remove('hidden');
             document.getElementById('post__content').classList.remove('post__content--extended');
@@ -160,6 +161,7 @@ controller = {
               // search: search,
               children: []
             }, function() {
+              $('#slogan').hide();
               document.getElementById('search').classList.add('hidden');
               document.getElementById('post').classList.remove('hidden');
             });
@@ -376,6 +378,9 @@ controller = {
       var rowToRemove = currentRow;
       currentRow = currentRow.nextElementSibling;
       postList.removeChild(rowToRemove);
+    }
+    if (common.isBlank(postList.innerHTML)) {
+      postList.innerHTML = '<div class="post_list__not_found">No extensions found</div>';
     }
   },
 

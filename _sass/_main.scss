@@ -35,13 +35,14 @@
     transition: transform 0.2s;
   }
 }
-// 
-// .slogan {
-//   position: absolute;
-//   left: 90px;
-//   top: 50px;
-//   font-size: 12px;
-// }
+
+.slogan {
+  position: absolute;
+  left: 90px;
+  top: 55px;
+  font-size: 14px;
+  font-weight: bold;
+}
 
 .logo_text {
   float: left;
@@ -53,4 +54,15 @@
   margin-top: -3px;
   width: 65px;
   margin-right: 7px;
+}
+
+.post_list__loading {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.post_list__not_found {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 30px;
 }
