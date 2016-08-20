@@ -228,24 +228,24 @@ controller = {
             controller.fillPost(data, document.getElementById('post'));
             break;
           // Post child's details (for example: comments, rubygems, github)
-          // case 3:
-          //   if (controller.getCurrentPath() + '/' + pathParts[2] !== data.path) {
-          //     throw new Error('Illegal path: ' + data.path + '. Expected: ' + controller.getCurrentPath() + '/' + pathParts[2]);
-          //   }
-          //   switch (pathParts[2]) {
-          //     case 'comments':
-          //       controller.fillComments(data.children);
-          //       break;
-          //     case 'rubygems':
-          //       controller.fillChildPost(pathParts[2], data.fields);
-          //       break;
-          //     case 'github':
-          //       controller.fillChildPost(pathParts[2], data.fields);
-          //       break;
-          //     default:
-          //       throw new Error('Illegal path: ' + data.path + '. Expected comments, rubygems or github.');
-          //   }
-          //   break;
+          case 3:
+            if (controller.getCurrentPath() + '/' + pathParts[2] !== data.path) {
+              throw new Error('Illegal path: ' + data.path + '. Expected: ' + controller.getCurrentPath() + '/' + pathParts[2]);
+            }
+            switch (pathParts[2]) {
+              case 'comments':
+                controller.fillComments(data.children);
+                break;
+              // case 'rubygems':
+              //   controller.fillChildPost(pathParts[2], data.fields);
+              //   break;
+              // case 'github':
+              //   controller.fillChildPost(pathParts[2], data.fields);
+              //   break;
+              default:
+                throw new Error('Illegal path: ' + data.path + '. Expected comments, rubygems or github.');
+            }
+            break;
           default:
             throw new Error('Illegal path: ' + data.path + '. Path contains more then 3 names');
         }
@@ -443,9 +443,9 @@ controller = {
       '    </div>\n' +
       '  </div>\n' +
       '  <div class="post__github_short_info">\n' +
-      '    <div class="summery_block__item">\n' +
-      '      <i class="fa fa-code-fork" aria-hidden="true"></i><span class="summery_block__item_value">' + common.findByName(postData.fields, 'githubForks').value + '</span>\n' +
-      '    </div>\n' +
+      // '    <div class="summery_block__item">\n' +
+      // '      <i class="fa fa-code-fork" aria-hidden="true"></i><span class="summery_block__item_value">' + common.findByName(postData.fields, 'githubForks').value + '</span>\n' +
+      // '    </div>\n' +
       '    <div class="summery_block__item">\n' +
       '      <i class="fa fa-star" aria-hidden="true"></i><span class="summery_block__item_value">' + common.findByName(postData.fields, 'githubStars').value + '</span>\n' +
       '    </div>\n' +
