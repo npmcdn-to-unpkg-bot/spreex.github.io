@@ -54,11 +54,11 @@ controller = {
               }
             });
             var n = parseInt($('.post__n_comments').get(0).innerText);
-            $('.post__n_comments').text(n - 1);
+            $('.post__n_comments').text(Math.max(n - 1, 0));
             break;
           case 'likes':
             var n = parseInt($('.post__n_likes').get(0).innerText);
-            $('.post__n_likes').text(n - 1);
+            $('.post__n_likes').text(Math.max(n - 1, 0));
             if (data.path === $('.post__n_likes_wrap').data('entity-path')) {
               $('.post__n_likes_wrap').removeClass('post__n_likes_wrap--liked');
               $('.post__n_likes_wrap').data('entity-path', null);
