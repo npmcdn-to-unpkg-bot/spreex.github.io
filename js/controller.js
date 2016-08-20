@@ -228,24 +228,24 @@ controller = {
             controller.fillPost(data, document.getElementById('post'));
             break;
           // Post child's details (for example: comments, rubygems, github)
-          case 3:
-            if (controller.getCurrentPath() + '/' + pathParts[2] !== data.path) {
-              throw new Error('Illegal path: ' + data.path + '. Expected: ' + controller.getCurrentPath() + '/' + pathParts[2]);
-            }
-            switch (pathParts[2]) {
-              case 'comments':
-                controller.fillComments(data.children);
-                break;
-              case 'rubygems':
-                controller.fillChildPost(pathParts[2], data.fields);
-                break;
-              case 'github':
-                controller.fillChildPost(pathParts[2], data.fields);
-                break;
-              default:
-                throw new Error('Illegal path: ' + data.path + '. Expected comments, rubygems or github.');
-            }
-            break;
+          // case 3:
+          //   if (controller.getCurrentPath() + '/' + pathParts[2] !== data.path) {
+          //     throw new Error('Illegal path: ' + data.path + '. Expected: ' + controller.getCurrentPath() + '/' + pathParts[2]);
+          //   }
+          //   switch (pathParts[2]) {
+          //     case 'comments':
+          //       controller.fillComments(data.children);
+          //       break;
+          //     case 'rubygems':
+          //       controller.fillChildPost(pathParts[2], data.fields);
+          //       break;
+          //     case 'github':
+          //       controller.fillChildPost(pathParts[2], data.fields);
+          //       break;
+          //     default:
+          //       throw new Error('Illegal path: ' + data.path + '. Expected comments, rubygems or github.');
+          //   }
+          //   break;
           default:
             throw new Error('Illegal path: ' + data.path + '. Path contains more then 3 names');
         }
@@ -268,6 +268,8 @@ controller = {
     $('#post__content_346238_4_6283').html('<div class="post__content_loading"><i class="fa fa-refresh fa-spin fa-3x fa-fw"></i></div>');
     $('.summery_block .post__n_likes_wrap').removeClass('post__n_likes_wrap--liked');
     $('.summery_block .post__n_likes_wrap').data('entity-path', null);
+    $('.post__rubygems').hide();
+    $('.post__rubygems_wikiURL').addClass('disabled');
   },
 
   reload: function(letAloneNewComment) {
@@ -331,7 +333,14 @@ controller = {
     if (typeof parentElement === 'undefined') {
       parentElement = document;
     }
-    var childPrefix = 'post__' + common.getChildName(childData.path) + '_';
+
+    var childClassName = 'post__' + common.getChildName(childData.path);
+    if (!UIHelper.isEmptyFields(childData.fields)) {
+      $('.' + childClassName).show();
+    }
+
+    var childPrefix = childClassName + '_';
+
     for (var childFieldIndex in childData.fields) {
       var childField = childData.fields[childFieldIndex];
       if (common.isBlank(childField.value)) {
@@ -412,6 +421,17 @@ controller = {
     row.setAttribute('class', 'post post--row');
     row.setAttribute('data-postName', postName);
     row.setAttribute('data-createdAt', postData.createdAt);
+    var downloads = '';
+    var rubygemsDownloads;
+    if (common.findByName(postData.fields, 'rubygemsDownloads') != null) {
+      rubygemsDownloads = common.findByName(postData.fields, 'rubygemsDownloads').value;
+    }
+    if (common.isPresent(rubygemsDownloads) && rubygemsDownloads !== '0' && rubygemsDownloads !== 0) {
+      var downloads =
+        '    <div class="summery_block__item">\n' +
+        '      <i class="fa fa-download" aria-hidden="true"></i><span class="summery_block__item_value">' + rubygemsDownloads + '</span>\n' +
+        '    </div>\n';
+    }
     var html =
       '<a class="clearfix relative" href="/' + postData.path + '" onclick="event.preventDefault(); return controller.load(this.href, true);">\n' +
       '  <div>\n' +
@@ -432,6 +452,7 @@ controller = {
       // '    <div class="summery_block__item">\n' +
       // '      <i class="fa fa-eye" aria-hidden="true"></i><span class="summery_block__item_value post__github_watchers">' + common.findByName(postData.fields, 'githubWatchers').value + '</span>\n' +
       // '    </div>\n' +
+      downloads +
       '  </div>\n' +
       '</a>';
     row.innerHTML = html;

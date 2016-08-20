@@ -1,4 +1,14 @@
 UIHelper = {
+  isEmptyFields: function(fields) {
+    for (var i in fields) {
+      var field = fields[i];
+      if (common.isPresent(field.value) && field.value !== '0' && field.value !== 0) {
+        return false;
+      }
+    }
+    return true;
+  },
+
   addOrReplaceURLParam: function(url, paramName, paramValue) {
     var urlParts = url.split('?');
     var query = urlParts[1] || '';
