@@ -100,6 +100,22 @@ controller = {
     }
   },
 
+  unsubscribe: function() {
+    var oldPath = controller.getCurrentPath();
+    var oldPathParts = UIHelper.parsePath(oldPath);
+    if (oldPathParts.length != 2 || oldPathParts[0] !== 'extensions') {
+      return;
+    }
+    Mydataspace.emit('entities.unsubscribe', {
+      root: controller.ROOT,
+      path: oldPath + '/comments/*'
+    });
+    Mydataspace.emit('entities.unsubscribe', {
+      root: controller.ROOT,
+      path: oldPath + '/likes/*'
+    });
+  },
+
   /**
    * Load data by URL of required page.
    * @param url URL of the required page.
@@ -119,8 +135,8 @@ controller = {
     search = search === '' ? null : search;
 
     switch (newPathParts[0]) {
-      case '#':
-        return;
+      // case '#':
+      //   return;
       case 'extensions':
         switch (newPathParts.length) {
           case 1: // laod extension list
@@ -142,6 +158,8 @@ controller = {
               children: []
             }, function() {
             });
+
+            controller.unsubscribe();
             break;
           case 2: // load concret extension content
             controller.resetPost(options.letAloneNewComment);
@@ -189,6 +207,8 @@ controller = {
                 document.getElementById('post__content_346238_4_6283').innerHTML = html;
               }
             });
+
+            controller.unsubscribe();
             break;
           default:
             throw new Error('Illegal URL: ' + url);
