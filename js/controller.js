@@ -12,7 +12,7 @@ controller = {
     };
     // Mydataspace.registerFormatter('entities.get', new EntityUnsimplifier());
     // Mydataspace.registerFormatter('entities.get.res', new EntitySimplifier());
-    Mydataspace.init({
+    Mydataspace = new Myda({
       apiURL: apiURL,
       websocketURL: websocketURL,
       clientId: clientId,
