@@ -15,22 +15,19 @@
   <title>{% if page.title %}{{ page.title | escape }}{% else %}{{ site.title | escape }}{% endif %}</title>
   <meta name="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
 
-  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu+Condensed:400,400">
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Ubuntu+Condensed:400,400">
   <link rel="stylesheet" href="{{ "/css/main.css" | prepend: site.baseurl }}">
   <link rel="stylesheet" href="{{ "/vendor/fontawesome/css/font-awesome.css" | prepend: site.baseurl }}">
   <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
 
   <script src="/vendor/jquery/jquery.js" charset="utf-8"></script>
   <script src="/vendor/bootstrap/bootstrap.js" charset="utf-8"></script>
-  <script src="http://npmcdn.com/github-api/dist/GitHub.bundle.min.js" charset="utf-8"></script>
+  <script src="//npmcdn.com/github-api/dist/GitHub.bundle.min.js" charset="utf-8"></script>
   <script src="/vendor/socket.io.js"></script>
   <script src="/vendor/remarkable.js" charset="utf-8"></script>
 
-  <script src="http://my-data.space/js/common.js"></script>
-  <script src="http://my-data.space/js/mydataspace.js"></script>
+  <script src="https://my-data.space/js/api/v1.5.js"></script>
 
-  <!-- <script src="/js/common.js"></script>
-  <script src="/js/mydataspace.js"></script> -->
 
   <script src="/js/uihelper.js"></script>
   <script src="/js/controller.js"></script>
