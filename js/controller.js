@@ -17,6 +17,7 @@ controller = {
       websocketURL: websocketURL,
       clientId: clientId,
       permission: 'spreex.github.io',
+      simpleFormat: false,
       connected: function() {
         Mydataspace.on('entities.get.res', controller.handle);
         Mydataspace.on('entities.create.res', controller.onCreated);
