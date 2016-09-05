@@ -1,5 +1,5 @@
 controller = {
-  ROOT: 'spreex.github.io',
+  ROOT: 'spreex',
   currentURL: '',
 
   getCurrentURL: function() {
