@@ -24,3 +24,14 @@
 .relative {
   position: relative;
 }
+
+.signin_modal__auth_button--google {
+  &, &:focus {
+    background: #313131;
+    border: 1px solid #1f1f1f;
+  }
+  &:active, &:hover {
+    background: #1f1f1f;
+    border: 1px solid #1f1f1f;
+  }
+}
